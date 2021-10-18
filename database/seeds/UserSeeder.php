@@ -11,6 +11,13 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('users')->insert([
+           'id' => 1 ,
+           'name' => 'J&P Perifericos S.A.C',
+           'ruc' => '20545122520',
+           'password' => bcrypt('123'),
+           'url' => '/jypsac',
+           'estado' => 1
+       ]);
     }
 }
