@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('autenticacion') }}">
+                    <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -24,7 +24,8 @@
                                 @enderror
                             </div>
                         </div>
-
+                        <input id="password" type="password" hidden="" value="1" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                        
                        {{--  <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 

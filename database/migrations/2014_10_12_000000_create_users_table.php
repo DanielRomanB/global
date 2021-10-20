@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('url'); //url de destino para el dyndns
             $table->boolean('estado'); //estado
+            $table->string('tipo'); //tipo e Usuario
             // $table->timestamp('email_verified_at')->nullable();
             // $table->string('password');
             $table->rememberToken();
