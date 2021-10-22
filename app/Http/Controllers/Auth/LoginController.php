@@ -39,20 +39,16 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
- 
-
-    public function showLoginForm()
-    {
-        return view('auth.login');
-    }
 
     public function authenticated()
     {
-
         if(auth()->user()->tipo == "Administrador"){
-            return view('home');
+            return view('auth.login');
         }else{
             return redirect(''.auth()->user()->url.'');
         }
+    }
+    public function showLoginForm(){
+        return view('auth.login');
     }
 }

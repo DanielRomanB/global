@@ -17,13 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::group(
     [ 'middleware' => ['auth','api']],
     function(){
-
-    Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/', function () {
-        return view('home_auth');
-    });
+        Route::get('/' , 'ViewController@home')->name('inicio');
+        Route::resource('/empresa','EmpresaController');
     }
 );
-// Route::get('/' , 'HomeController@home')->name('welcome');
 Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
 
