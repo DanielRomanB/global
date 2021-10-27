@@ -15,14 +15,10 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); //nombre de empresa
-            $table->string('ruc')->unique(); //ruc
+            $table->string('email');
             $table->string('password');
-            $table->string('url'); //url de destino para el dyndns
             $table->boolean('estado'); //estado
-            $table->string('tipo'); //tipo e Usuario
-            // $table->timestamp('email_verified_at')->nullable();
-            // $table->string('password');
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

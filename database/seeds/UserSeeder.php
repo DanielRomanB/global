@@ -13,12 +13,9 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
            'id' => 1 ,
-           'name' => 'J&P Perifericos S.A.C',
-           'ruc' => '20545122520',
-           'password' => bcrypt('1'),
-           'url' => '/jypsac',
-           'estado' => 1,
-           'tipo' => 'Administrador'
+           'email' => 'desarrollo@jypsac.com',
+           'password' => bcrypt('123'),
+           'estado' => 1
        ]);
     }
 }

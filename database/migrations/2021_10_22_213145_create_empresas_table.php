@@ -15,6 +15,10 @@ class CreateEmpresasTable extends Migration
     {
         Schema::create('empresas', function (Blueprint $table) {
             $table->id();
+            $table->string('name'); //nombre de empresa
+            $table->string('ruc')->unique(); //ruc
+            // $table->string('url'); //url de destino para el dyndns
+            $table->boolean('estado'); //estado
             $table->timestamps();
         });
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Empresa;
 use Auth;
 
 class LoginController extends Controller
@@ -28,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -42,11 +43,7 @@ class LoginController extends Controller
 
     public function authenticated()
     {
-        if(auth()->user()->tipo == "Administrador"){
-            return view('auth.login');
-        }else{
-            return redirect(''.auth()->user()->url.'');
-        }
+       return redirect()->route('empresa.index');
     }
     public function showLoginForm(){
         return view('auth.login');
