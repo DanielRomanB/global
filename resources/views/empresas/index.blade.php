@@ -12,15 +12,15 @@
 <div class="modal fade" id="modalagregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <form action="{{route('empresa.store')}}" enctype="multipart/form-data" method="post">
-          @csrf
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Agregar</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+      @csrf
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
           <div class="row">
             <div class="col-md-2">
               <span>Nombre</span>
@@ -39,22 +39,12 @@
             </div>
           </div>
           <br>
-          <div class="row">
-            <div class="col-md-2">
-              <span>Estado</span>
-            </div>
-            <div class="col-md-10">
-              <div class="form-check form-switch">
-              <input class="form-check-input chack" type="checkbox" name="checkbox" id="check" checked>
-            </div>
-            </div>
-          </div>
+        </div>
+        <div class="modal-footer">
+          {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
       </div>
-      <div class="modal-footer">
-        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-        <button type="submit" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
     </form>
   </div>
 </div>
@@ -72,8 +62,7 @@
                 <th>Nombre</th>
                 <th>RUC</th>
                 <th>Estado</th>
-                <th>Editar</th>
-                <th>Eliminar</th>
+                <th></th>
               </th>
             </thead>
             <tbody>
@@ -89,8 +78,7 @@
                   Desactivo
                   @endif
                 </td>
-                <td><button class="btn btn-primary">Editar</button></td>
-                <td><button class="btn btn-danger">Eliminar</button></td>
+                <td><button class="btn btn-primary"></button><div id="countdown{{$empresa->id}}"></div></td>
               </tr>
               @endforeach
             </tbody>
@@ -115,7 +103,6 @@
 <script src="{{ asset('js/inspinia.js') }}"></script>
 <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
 
-
 <!-- Page-Level Scripts -->
 <script>
   $(document).ready(function(){
@@ -127,5 +114,41 @@
     });
   });
 </script>
+
+@foreach($empresas as $empresa)
+<script>
+  var end{{$empresa->id}} = new Date("{{$empresa->created_at}}");
+  minutoSumar =4;
+  end{{$empresa->id}}.setMinutes( end{{$empresa->id}}.getMinutes() + minutoSumar);
+  var _second = 1000;
+  var _minute = _second * 60;
+  var timer{{$empresa->id}};
+
+  function showRemaining{{$empresa->id}}() {
+    var now{{$empresa->id}} =  Date.now();
+    // alert(now);
+    var distance = end{{$empresa->id}} - now{{$empresa->id}};
+    if (distance < 0) {
+
+      clearInterval(timer{{$empresa->id}});
+      document.getElementById('countdown{{$empresa->id}}').innerHTML = 'Terminado!';
+      // alert("terminó");
+
+      return;
+    }
+    var minutes = Math.floor(distance / _minute) ;
+    var seconds = Math.floor((distance % _minute) / _second);
+
+    if (minutes>0) {
+      document.getElementById('countdown{{$empresa->id}}').innerHTML = minutes + ' min ';
+    }else{document.getElementById('countdown{{$empresa->id}}').innerHTML = '';
+  }
+  document.getElementById('countdown{{$empresa->id}}').innerHTML += seconds + ' seg'  ;
+}
+
+timer{{$empresa->id}} = setInterval(showRemaining{{$empresa->id}}, 1000) ;
+</script>
+
+@endforeach
 
 @endsection
