@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Redirect;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +21,10 @@ Route::group(
         Route::resource('/empresa','EmpresaController');
     }
 );
+// Route::get('/clear',function(){
+//     Artisan::call('migrate:fresh --seed');
+//     return Redirect::to('http://global.test:190/empresa');
+// });
 Auth::routes();
 Route::get('/','ViewController@login_ruc')->name('login_ruc');
 Route::post('/sesion','ViewController@sesion')->name('sesion');

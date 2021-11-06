@@ -1,1 +1,0 @@
-robocopy C:\laragon\www\facturacion C:\Users\Desarrollo\Desktop\prueba2 /e

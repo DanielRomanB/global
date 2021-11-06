@@ -49,6 +49,7 @@
   </div>
 </div>
 {{--  --}}
+<div id="divmsg" class="divmsg"></div>
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
     <div class="col-lg-12">
@@ -58,10 +59,11 @@
             <table class="table table-striped table-bordered table-hover dataTables-example" >
              <thead>
               <tr>
-                <th>ID</th>
+                <th style="width: 8px;">Item</th>
                 <th>Nombre</th>
                 <th>RUC</th>
-                <th>Estado</th>
+                <th>Fecha Creacion</th>
+                <th>estado</th>
                 <th></th>
               </th>
             </thead>
@@ -71,6 +73,7 @@
                 <td>{{$empresa->id}}</td>
                 <td>{{$empresa->name}}</td>
                 <td>{{$empresa->ruc}}</td>
+                <td>{{$empresa->created_at}}</td>
                 <td>
                   @if($empresa->estado == "1")
                   Activo
@@ -78,19 +81,86 @@
                   Desactivo
                   @endif
                 </td>
-                <td><button class="btn btn-primary"></button><div id="countdown{{$empresa->id}}"></div></td>
+                <td>@if($empresa->estado_duplicado == "1")<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModa{{$empresa->id}}"><i class="fa fa-cog"></i></button> @else <div id="countdown{{$empresa->id}}"></div>@endif</td>
+                {{--   <td><button type="button" class='delete{{$empresa->id}} borrar e btn btn-danger'  > <i class="fa fa-trash" aria-hidden="true"></i> </button></td> --}}
               </tr>
-              @endforeach
-            </tbody>
-          </table>
+              <div class="modal inmodal fade" id="myModa{{$empresa->id}}" tabindex="-1" role="dialog"  aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header" style="padding-bottom: 10px;padding-top: 10px;">
+                      <h4 class="modal-title">{{$empresa->name}} - RUC: {{$empresa->ruc}}</h4>
+                    </div>
+                    <div class="modal-body">
+                      <form action="{{route('empresa.update',$empresa->id)}}"  enctype="multipart/form-data" method="post">@csrf @method('PATCH')
+                        <div class="row">
+                          <div class="col-lg-6 ">
+                            <div class="form-group">
+                              <label style="margin-bottom: 1px;">Nombre Empresa:</label>
+                              <input type="text" value="{{$empresa->name}}" name="nombre_empresa" class="form-control" required >
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                           <div class="form-group">
+                            <label style="margin-bottom: 1px;">R.U.C:</label>
+                            <input type="text" class="form-control" value="{{$empresa->ruc}}" disabled>
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                         <div class="form-group">
+                          <label style="margin-bottom: 1px;">Nombre de Usuario (Sunat):</label>
+                          <input type="text" class="form-control" name="nombre_usuario_sunat" placeholder="Usuario Secundario" value="{{$empresa->usuario_sunat}}" >
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                       <div class="form-group">
+                        <label style="margin-bottom: 1px;">Contraseña de Usuario (Sunat):</label>
+                        <input type="text" class="form-control" placeholder="*******"  name="psw_usuario_sunat" value="{{$empresa->contrasena_sunat}}">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                     <div class="form-group">
+                      <label style="margin-bottom: 5px;">Certificado (Sunat):</label><br>
+                      <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <span class="btn btn-default btn-file"><span class="fileinput-new">Selecciona Archivo .P12</span><span class="fileinput-exists">Cambiar</span><input type="file" name="certificado"></span>
+                        <span class="fileinput-filename"></span>
+                        <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                      </div>
+                      {{-- <input type="file" class="form-control"  value="{{$empresa->contrasena_sunat}}"> --}}
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                   <div class="form-group">
+                    <label style="margin-bottom: 1px;">Contraseña de Certificado (Sunat):</label>
+                    <input type="text" class="form-control" name="psw_certificado" placeholder="*******"  value="{{$empresa->contrasena_sunat}}">
+                  </div>
+                </div>
+                <div class="col-lg-12" align="right">
+                  <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+
+
+
         </div>
       </div>
     </div>
-  </div>
-</div>
-</div>
-<style>.form-control{margin-top: 6px;}</style>
+    @endforeach
 
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<style>
+  .form-control{margin-top: 6px;}
+  .btn.btn-default.btn-file{ background: #379ff969;color: black;}
+</style>
 <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
 <script src="{{ asset('js/popper.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js') }}"></script>
@@ -102,6 +172,9 @@
 <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/inspinia.js') }}"></script>
 <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
+<link href="css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+<script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
 
 <!-- Page-Level Scripts -->
 <script>
@@ -118,7 +191,7 @@
 @foreach($empresas as $empresa)
 <script>
   var end{{$empresa->id}} = new Date("{{$empresa->created_at}}");
-  minutoSumar =4;
+  minutoSumar =2;
   end{{$empresa->id}}.setMinutes( end{{$empresa->id}}.getMinutes() + minutoSumar);
   var _second = 1000;
   var _minute = _second * 60;
@@ -131,7 +204,7 @@
     if (distance < 0) {
 
       clearInterval(timer{{$empresa->id}});
-      document.getElementById('countdown{{$empresa->id}}').innerHTML = 'Terminado!';
+      document.getElementById('countdown{{$empresa->id}}').innerHTML = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModa{{$empresa->id}}"><i class="fa fa-cog"></i></button>';
       // alert("terminó");
 
       return;
@@ -140,15 +213,39 @@
     var seconds = Math.floor((distance % _minute) / _second);
 
     if (minutes>0) {
-      document.getElementById('countdown{{$empresa->id}}').innerHTML = minutes + ' min ';
+      document.getElementById('countdown{{$empresa->id}}').innerHTML = minutes + 'min ';
     }else{document.getElementById('countdown{{$empresa->id}}').innerHTML = '';
   }
-  document.getElementById('countdown{{$empresa->id}}').innerHTML += seconds + ' seg'  ;
+  document.getElementById('countdown{{$empresa->id}}').innerHTML += seconds + 'seg'  ;
 }
 
 timer{{$empresa->id}} = setInterval(showRemaining{{$empresa->id}}, 1000) ;
 </script>
 
 @endforeach
+<script type="text/javascript">
+ $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 
-@endsection
+ @foreach($empresas as $empresa)
+ $(".delete{{$empresa->id}}").click(function(e){
+  e.preventDefault();
+  var accion = 'delete';
+  $.ajax({
+    type:'PUT',
+    url:"{{ route('empresa.update', $empresa->id) }}",
+    data:{accion:accion},
+    success:function(data){
+      mostrarMensaje(data.mensaje);
+    }
+  });
+});
+ @endforeach
+ function mostrarMensaje(mensaje){
+       $("#divmsg").empty(); //limpiar div
+       $("#divmsg").append(mensaje);
+       $("#divmsg").show(200);
+       $("#divmsg").hide(3000);
+     }
+   </script>
+
+   @endsection
