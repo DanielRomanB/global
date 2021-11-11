@@ -14,42 +14,34 @@
     <form action="{{route('empresa.store')}}" enctype="multipart/form-data" method="post">
       @csrf
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Agregar</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-2">
-              <span>Nombre</span>
+            <div class="col-md-12">
+              <p><b>Nota: Asegurese que el N°  R.U.C sea correcto</b></p>
             </div>
-            <div class="col-md-10">
-              <input type="text" class="form-control" autocomplete="off" name="nombre">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label style="margin-bottom: 1px;">Nombre*</label>
+                <input type="text" class="form-control"  autocomplete="off" required name="nombre">
+              </div>
+            </div>
+            <div class="col-lg-12">
+             <div class="form-group">
+              <label style="margin-bottom: 1px;">RUC*</label>
+              <input type="text" class="form-control"  autocomplete="off" required name="ruc">
             </div>
           </div>
-          <br>
-          <div class="row">
-            <div class="col-md-2">
-              <span>RUC</span>
-            </div>
-            <div class="col-md-10">
-              <input type="" class="form-control" autocomplete="off" name="ruc">
-            </div>
-          </div>
-          <br>
-        </div>
-        <div class="modal-footer">
-          {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-          <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
       </div>
-    </form>
-  </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </form>
+</div>
 </div>
 {{--  --}}
-<div id="divmsg" class="divmsg"></div>
+
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
     <div class="col-lg-12">
@@ -74,25 +66,30 @@
                 <td>{{$empresa->name}}</td>
                 <td>{{$empresa->ruc}}</td>
                 <td>{{$empresa->created_at}}</td>
-                <td>
-                  @if($empresa->estado == "1")
-                  Activo
-                  @else
-                  Desactivo
-                  @endif
-                </td>
+                <td>@if($empresa->estado == "1")Activo @else Desactivo @endif</td>
                 <td>@if($empresa->estado_duplicado == "1")<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModa{{$empresa->id}}"><i class="fa fa-cog"></i></button> @else <div id="countdown{{$empresa->id}}"></div>@endif</td>
-                {{--   <td><button type="button" class='delete{{$empresa->id}} borrar e btn btn-danger'  > <i class="fa fa-trash" aria-hidden="true"></i> </button></td> --}}
               </tr>
               <div class="modal inmodal fade" id="myModa{{$empresa->id}}" tabindex="-1" role="dialog"  aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
-                    <div class="modal-header" style="padding-bottom: 10px;padding-top: 10px;">
-                      <h4 class="modal-title">{{$empresa->name}} - RUC: {{$empresa->ruc}}</h4>
-                    </div>
-                    <div class="modal-body">
-                      <form action="{{route('empresa.update',$empresa->id)}}"  enctype="multipart/form-data" method="post">@csrf @method('PATCH')
-                        <div class="row">
+                    <div class=" row" style="padding-bottom: 10px;padding-top: 10px; padding-right: 5px;">
+                      <div class="col-lg-10" align="center">
+                       <h1><b>{{$empresa->name}}</b></h1>
+                     </div>
+                     <div class="col-lg-2" align="right">
+                      @if($empresa->certificado!==NULL and $empresa->usuario_sunat!==NULL and $empresa->contrasena_sunat!==NULL and $empresa->contrasena_certi!==NULL)
+                       @if($empresa->estado==0)<input  type="checkbox" class="js-switch_2{{$empresa->id}}" />
+                       @else<input  type="checkbox" class="js-switch_2{{$empresa->id}}" checked />@endif
+                       @endif
+                     </div>
+                   </div>
+                   <div class="modal-body">
+                    <form action="{{route('empresa.update',$empresa->id)}}"  enctype="multipart/form-data" method="post">@csrf @method('PATCH')
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div id="divmsg{{$empresa->id}}" ></div>
+                        </div>
+                        <div class="col-lg-9 row">
                           <div class="col-lg-6 ">
                             <div class="form-group">
                               <label style="margin-bottom: 1px;">Nombre Empresa:</label>
@@ -117,39 +114,59 @@
                         <input type="text" class="form-control" placeholder="*******"  name="psw_usuario_sunat" value="{{$empresa->contrasena_sunat}}">
                       </div>
                     </div>
+
                     <div class="col-lg-6">
                      <div class="form-group">
                       <label style="margin-bottom: 5px;">Certificado (Sunat):</label><br>
-                      <div class="fileinput fileinput-new" data-provides="fileinput">
-                        <span class="btn btn-default btn-file"><span class="fileinput-new">Selecciona Archivo .P12</span><span class="fileinput-exists">Cambiar</span><input type="file" name="certificado"></span>
-                        <span class="fileinput-filename"></span>
+                      <center> <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <span class="btn btn-info btn-file">
+                          <span class="fileinput-new"><img src="{{ asset('certi.png') }}" width="50px" alt=""></span>
+                          <span class="fileinput-exists"><img src="{{ asset('certi.png') }}" width="50px" alt=""></span>
+                          <input type="file" name="certificado" >
+                        </span>
+                        <span class="fileinput-filename"> </span>
                         <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                       </div>
-                      {{-- <input type="file" class="form-control"  value="{{$empresa->contrasena_sunat}}"> --}}
                     </div>
                   </div>
+
                   <div class="col-lg-6">
                    <div class="form-group">
                     <label style="margin-bottom: 1px;">Contraseña de Certificado (Sunat):</label>
-                    <input type="text" class="form-control" name="psw_certificado" placeholder="*******"  value="{{$empresa->contrasena_sunat}}">
+                    <input type="text" class="form-control" name="psw_certificado" placeholder="*******"  value="{{$empresa->contrasena_certi}}">
                   </div>
                 </div>
-                <div class="col-lg-12" align="right">
+                <div class="col-lg-12" align="center">
                   <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
-
               </div>
-            </form>
-          </div>
+              <div class="col-lg-3 " style="border-left:1px solid grey;margin-left: 5px;">
+                <div class=" row">
+                  <div class="col-sm-12" style="padding-bottom:5px"><b><i> Se debe cumplir el llenado del todos los campos para que la empresa pueda ser Activado.</i></b></div>
+                  <div class="col-sm-10"><label >Documento Certificado </label></div>
+                  <div class="col-sm-2"><i @if(isset($empresa->certificado)) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif></i></div>
+                  <div class="col-sm-10"><label >Contraseña del Certificado </label></div>
+                  <div class="col-sm-2"><i @if(isset($empresa->contrasena_certi)) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif></i></div>
+                  <div class="col-sm-10"><label >Usuario de Sunat </label></div>
+                  <div class="col-sm-2"><i @if(isset($empresa->usuario_sunat)) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif></i></div>
+                  <div class="col-sm-10"><label >contraseña de Sunat </label></div>
+                  <div class="col-sm-2"><i @if(isset($empresa->contrasena_sunat)) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif ></i></div>
+                </div>
+              </div>
 
-
-
+            </div>
+          </form>
         </div>
+
+
+
       </div>
     </div>
-    @endforeach
+  </div>
 
-  </tbody>
+  @endforeach
+
+</tbody>
 </table>
 </div>
 </div>
@@ -159,8 +176,12 @@
 </div>
 <style>
   .form-control{margin-top: 6px;}
-  .btn.btn-default.btn-file{ background: #379ff969;color: black;}
+  .btn.btn-info.btn-file{ background: #379ff900;border-color: #379ff900; color: black;}
+  .fa.fa-check-circle{color: green;}
+  .fa.fa-times-circle{color: red;}
+
 </style>
+
 <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
 <script src="{{ asset('js/popper.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js') }}"></script>
@@ -172,9 +193,15 @@
 <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/inspinia.js') }}"></script>
 <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
-<link href="css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-<script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
-
+<link href="{{ asset('css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
+<script src="{{ asset('js/plugins/jasny/jasny-bootstrap.min.js') }}"></script>
+<!-- switchery script -->
+<link href="{{ asset('css/plugins/switchery/switchery.css') }}" rel="stylesheet">
+<script src="{{ asset('js/plugins/switchery/switchery.js') }}"></script>
+@foreach($empresas as $empresa)
+<script>  var elem_2= document.querySelector('.js-switch_2{{$empresa->id}}');
+var switchery_2 = new Switchery(elem_2, { color: 'green' });</script>
+@endforeach
 
 <!-- Page-Level Scripts -->
 <script>
@@ -227,25 +254,24 @@ timer{{$empresa->id}} = setInterval(showRemaining{{$empresa->id}}, 1000) ;
  $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 
  @foreach($empresas as $empresa)
- $(".delete{{$empresa->id}}").click(function(e){
+ $(".js-switch_2{{$empresa->id}}").change(function(e){
   e.preventDefault();
-  var accion = 'delete';
+  var accion = {{$empresa->id}};
   $.ajax({
     type:'PUT',
-    url:"{{ route('empresa.update', $empresa->id) }}",
+    url:"{{ route('empresa.estado', $empresa->id) }}",
     data:{accion:accion},
     success:function(data){
-      mostrarMensaje(data.mensaje);
+      mostrarMensaje{{$empresa->id}}(data.mensaje);
     }
   });
 });
- @endforeach
- function mostrarMensaje(mensaje){
-       $("#divmsg").empty(); //limpiar div
-       $("#divmsg").append(mensaje);
-       $("#divmsg").show(200);
-       $("#divmsg").hide(3000);
+ function mostrarMensaje{{$empresa->id}}(mensaje){
+       $("#divmsg{{$empresa->id}}").empty(); //limpiar div
+       $("#divmsg{{$empresa->id}}").append(mensaje);
+       $("#divmsg{{$empresa->id}}").show(200);
      }
+     @endforeach
    </script>
 
    @endsection

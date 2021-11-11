@@ -18,7 +18,8 @@ Route::group(
     [ 'middleware' => ['auth','api']],
     function(){
         Route::get('/login' , 'ViewController@home')->name('inicio');
-        Route::resource('/empresa','EmpresaController');
+        Route::resource('/empresa','EmpresaController')->except(['destroy']);;
+        Route::put('/empresa/estado/{id}','EmpresaController@estado')->name('empresa.estado');
     }
 );
 // Route::get('/clear',function(){

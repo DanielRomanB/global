@@ -28,6 +28,10 @@ class CreateEmpresasTable extends Migration
             $table->boolean('estado_certificado')->default('0'); //estado desactivo
 
             $table->boolean('estado_duplicado')->default('0'); //estado
+            $table->boolean('estado_migracion_bd')->default('0'); //estado
+
+            $table->string('nombre_carpeta')->nullable(); //nombre de empresa
+            $table->string('nombre_carpeta_desactivado')->nullable(); //nombre de empresa
             $table->boolean('estado')->default('0'); //estado desactivo
             $table->timestamps();
         });
