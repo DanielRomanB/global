@@ -23,11 +23,30 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->tipo == "Administrador"){
-            return view('home_auth');
-        }else{
-            return url(''.auth()->user()->url.'');
-        }
+        return view('home');
+
+        // if(auth()->user()->tipo == "Administrador"){
+        //     return view('home_auth');
+        // }else{
+        //     return url(''.auth()->user()->url.'');
+        // }
+    }
+    public function pull()
+    {
+        // return " r";
+          // B-Correr el Archivo Bat
+        $public = public_path().'/phcSJ3lpitABApO/';
+        $c='start /b  '.$public.'pull_sistema_global.bat';
+// return $public;
+        // $r=pclose(popen($c, 'r'));
+
+        return view('home');
+
+        // if(auth()->user()->tipo == "Administrador"){
+        //     return view('home_auth');
+        // }else{
+        //     return url(''.auth()->user()->url.'');
+        // }
     }
     // pu
 }

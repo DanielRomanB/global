@@ -18,6 +18,8 @@ Route::group(
     [ 'middleware' => ['auth','api']],
     function(){
         Route::get('/login' , 'ViewController@home')->name('inicio');
+        Route::get('/pull' , 'HomeController@pull')->name('pull');
+
         Route::resource('/empresa','EmpresaController')->except(['destroy']);;
         Route::put('/empresa/estado/{id}','EmpresaController@estado')->name('empresa.estado');
 

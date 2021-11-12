@@ -153,19 +153,13 @@
                   <div class="col-sm-2"><i @if(isset($sis_facturacions->contrasena_sunat)) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif ></i></div>
                 </div>
               </div>
-
             </div>
           </form>
         </div>
-
-
-
       </div>
     </div>
   </div>
-
   @endforeach
-
 </tbody>
 </table>
 </div>
