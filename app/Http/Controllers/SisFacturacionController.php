@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Empresa;
+use App\SisFacturacion;
 use App\User;
 use Illuminate\Http\Request;
 
-class EmpresaController extends Controller
+class SisFacturacionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,17 +18,17 @@ class EmpresaController extends Controller
         //  $cmd=shell_exec('C:\Users\Desarrollo\Desktop/cd.bat');
         // return "listo";
 
-        $empresas = Empresa::all();
-        if ($empresas) {
-            foreach ($empresas as $empresa) {
-                $mifecha=$empresa->created_at;
+        $facturacion = SisFacturacion::all();
+        if ($facturacion) {
+            foreach ($facturacion as $sis_fac) {
+                $mifecha=$sis_fac->created_at;
                 $NuevaFecha = strtotime ( '+2 minute' , strtotime ($mifecha) ) ;
                 $NuevaFecha = date ( 'Y-m-d H:i:s' , $NuevaFecha);
 
                 if ($NuevaFecha<date('Y-m-d H:i:s' )) {
-                    $empresa= Empresa::find($empresa->id);
-                    $empresa->estado_duplicado=1;
-                    $empresa->save();
+                    $sis_fac= SisFacturacion::find($sis_fac->id);
+                    $sis_fac->estado_duplicado=1;
+                    $sis_fac->save();
                 }
             }
         }
@@ -177,12 +177,12 @@ class EmpresaController extends Controller
 
     //2- Cambiar Nombre del ".env"
     // GUARDADO DE LOS VALORES A LA BASE DE DATOS
-        $user_empresa = new Empresa;
-        $user_empresa->name = $request->get('nombre');
-        $user_empresa->ruc =$request->get('ruc');
-        $user_empresa->nombre_carpeta ='facturacion_'.$nombre;
-        $user_empresa->nombre_carpeta_desactivado ='facturacion_'.$nombre.'_d1s4bl3d';
-        $user_empresa->save();
+        $user_facturacion = new SisFacturacion;
+        $user_facturacion->name = $request->get('nombre');
+        $user_facturacion->ruc =$request->get('ruc');
+        $user_facturacion->nombre_carpeta ='facturacion_'.$nombre;
+        $user_facturacion->nombre_carpeta_desactivado ='facturacion_'.$nombre.'_d1s4bl3d';
+        $user_facturacion->save();
         return back();
     }
 
@@ -203,7 +203,7 @@ class EmpresaController extends Controller
      * @param  \App\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Empresa $empresa)
+    public function edit(SisFacturacion $empresa)
     {
         //
     }
@@ -227,7 +227,7 @@ class EmpresaController extends Controller
 
 
         //ENTRANDO A LA EMPRESA PARA REALIZAR LOS CAMBIOS
-        $empresa= Empresa::find($id);
+        $empresa= SisFacturacion::find($id);
 
         //RECONOCIENDO SI EL CERTIFICADO ESTA SETEADO
         if($request->hasfile('certificado'))
@@ -423,7 +423,7 @@ class EmpresaController extends Controller
                 if ($empresa->usuario_sunat ==NULL or $empresa->contrasena_sunat ==NULL or  $empresa->certificado ==NULL or  $empresa->contrasena_certi ==NULL  ) {
                     if ($empresa->estado==1) {
                         rename("C:\laragon\www/".$empresa->nombre_carpeta , "C:\laragon\www/".$empresa->nombre_carpeta_desactivado);
-                        $cambio_estado= Empresa::find($id);
+                        $cambio_estado= SisFacturacion::find($id);
                         $cambio_estado->estado=0;
                         $cambio_estado->save();
                     }
@@ -439,7 +439,7 @@ class EmpresaController extends Controller
                 $empresa=$request->get('accion');
           // return response()->json(['mensaje'=>'<div class="alert alert-success">'.$empresa.' ']);
 
-                $estado_empresa=Empresa::find($empresa);
+                $estado_empresa=SisFacturacion::find($empresa);
                 if ($estado_empresa->estado==0) {
                     rename("C:\laragon\www/".$estado_empresa->nombre_carpeta_desactivado , "C:\laragon\www/".$estado_empresa->nombre_carpeta);
                     $estado_empresa->estado=1;

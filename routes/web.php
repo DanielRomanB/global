@@ -20,6 +20,9 @@ Route::group(
         Route::get('/login' , 'ViewController@home')->name('inicio');
         Route::resource('/empresa','EmpresaController')->except(['destroy']);;
         Route::put('/empresa/estado/{id}','EmpresaController@estado')->name('empresa.estado');
+
+        Route::resource('/sis_facturacion','SisFacturacionController')->except(['destroy']);;
+        Route::put('/sis_facturacion/estado/{id}','SisFacturacionController@estado')->name('sis_facturacion.estado');
     }
 );
 // Route::get('/clear',function(){
