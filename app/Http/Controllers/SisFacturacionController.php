@@ -18,9 +18,9 @@ class SisFacturacionController extends Controller
         //  $cmd=shell_exec('C:\Users\Desarrollo\Desktop/cd.bat');
         // return "listo";
 
-        $facturacion = SisFacturacion::all();
-        if ($facturacion) {
-            foreach ($facturacion as $sis_fac) {
+        $sis_facturacion = SisFacturacion::all();
+        if ($sis_facturacion) {
+            foreach ($sis_facturacion as $sis_fac) {
                 $mifecha=$sis_fac->created_at;
                 $NuevaFecha = strtotime ( '+2 minute' , strtotime ($mifecha) ) ;
                 $NuevaFecha = date ( 'Y-m-d H:i:s' , $NuevaFecha);
@@ -53,7 +53,7 @@ class SisFacturacionController extends Controller
  //    }
 
 
-        return view('empresas.index',compact('empresas'));
+        return view('empresas.index',compact('sis_facturacion'));
     }
 
     /**
@@ -429,7 +429,7 @@ class SisFacturacionController extends Controller
                     }
                 }
          // FIN PREGUNTA SI TODOS LOS CAMPOS ESTAN LLENOS PARA QUE ASI PUEDA OTORGAR LA ACTIVACION DE LA EMPRESA
-                return redirect()->route('empresa.index');
+                return redirect()->route('sis_facturacion.index');
          // FIN PREGUNTA SI TODOS LOS CAMPOS ESTAN LLENOS PARA QUE ASI PUEDA OTORGAR LA ACTIVACION DE LA EMPRESA
             }
 

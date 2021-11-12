@@ -1,8 +1,8 @@
 @extends('layout')
 
-@section('title', 'Adm. Empresa')
-@section('breadcrumb', 'Adm. Empresa')
-@section('breadcrumb2', 'Adm. Empresa')
+@section('title', 'Sistema Facturacion')
+@section('breadcrumb', 'Sistema Facturacion')
+@section('breadcrumb2', 'Sistema Facturacion')
 @section('data-toggle', 'modal')
 @section('href_accion', '#modalagregar')
 @section('value_accion', 'Agregar')
@@ -11,7 +11,7 @@
 @section('content')
 <div class="modal fade" id="modalagregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <form action="{{route('empresa.store')}}" enctype="multipart/form-data" method="post">
+    <form action="{{route('sis_facturacion.store')}}" enctype="multipart/form-data" method="post">
       @csrf
       <div class="modal-content">
         <div class="modal-body">
@@ -60,58 +60,58 @@
               </th>
             </thead>
             <tbody>
-              @foreach($empresas as $empresa)
+              @foreach($sis_facturacion as $sis_facturacions)
               <tr>
-                <td>{{$empresa->id}}</td>
-                <td>{{$empresa->name}}</td>
-                <td>{{$empresa->ruc}}</td>
-                <td>{{$empresa->created_at}}</td>
-                <td>@if($empresa->estado == "1")Activo @else Desactivo @endif</td>
-                <td>@if($empresa->estado_duplicado == "1")<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModa{{$empresa->id}}"><i class="fa fa-cog"></i></button> @else <div id="countdown{{$empresa->id}}"></div>@endif</td>
+                <td>{{$sis_facturacions->id}}</td>
+                <td>{{$sis_facturacions->name}}</td>
+                <td>{{$sis_facturacions->ruc}}</td>
+                <td>{{$sis_facturacions->created_at}}</td>
+                <td>@if($sis_facturacions->estado == "1")Activo @else Desactivo @endif</td>
+                <td>@if($sis_facturacions->estado_duplicado == "1")<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModa{{$sis_facturacions->id}}"><i class="fa fa-cog"></i></button> @else <div id="countdown{{$sis_facturacions->id}}"></div>@endif</td>
               </tr>
-              <div class="modal inmodal fade" id="myModa{{$empresa->id}}" tabindex="-1" role="dialog"  aria-hidden="true">
+              <div class="modal inmodal fade" id="myModa{{$sis_facturacions->id}}" tabindex="-1" role="dialog"  aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                     <div class=" row" style="padding-bottom: 10px;padding-top: 10px; padding-right: 5px;">
                       <div class="col-lg-10" align="center">
-                       <h1><b>{{$empresa->name}}</b></h1>
+                       <h1><b>{{$sis_facturacions->name}}</b></h1>
                      </div>
                      <div class="col-lg-2" align="right">
-                      @if($empresa->certificado!==NULL and $empresa->usuario_sunat!==NULL and $empresa->contrasena_sunat!==NULL and $empresa->contrasena_certi!==NULL)
-                       @if($empresa->estado==0)<input  type="checkbox" class="js-switch_2{{$empresa->id}}" />
-                       @else<input  type="checkbox" class="js-switch_2{{$empresa->id}}" checked />@endif
-                       @endif
-                     </div>
-                   </div>
-                   <div class="modal-body">
-                    <form action="{{route('empresa.update',$empresa->id)}}"  enctype="multipart/form-data" method="post">@csrf @method('PATCH')
+                      @if($sis_facturacions->certificado!==NULL and $sis_facturacions->usuario_sunat!==NULL and $sis_facturacions->contrasena_sunat!==NULL and $sis_facturacions->contrasena_certi!==NULL)
+                      @if($sis_facturacions->estado==0)<input  type="checkbox" class="js-switch_2{{$sis_facturacions->id}}" />
+                      @else<input  type="checkbox" class="js-switch_2{{$sis_facturacions->id}}" checked />@endif
+                      @endif
+                    </div>
+                  </div>
+                  <div class="modal-body">
+                    <form action="{{route('sis_facturacion.update',$sis_facturacions->id)}}"  enctype="multipart/form-data" method="post">@csrf @method('PATCH')
                       <div class="row">
                         <div class="col-lg-12">
-                          <div id="divmsg{{$empresa->id}}" ></div>
+                          <div id="divmsg{{$sis_facturacions->id}}" ></div>
                         </div>
                         <div class="col-lg-9 row">
                           <div class="col-lg-6 ">
                             <div class="form-group">
                               <label style="margin-bottom: 1px;">Nombre Empresa:</label>
-                              <input type="text" value="{{$empresa->name}}" name="nombre_empresa" class="form-control" required >
+                              <input type="text" value="{{$sis_facturacions->name}}" name="nombre_empresa" class="form-control" required >
                             </div>
                           </div>
                           <div class="col-lg-6">
                            <div class="form-group">
                             <label style="margin-bottom: 1px;">R.U.C:</label>
-                            <input type="text" class="form-control" value="{{$empresa->ruc}}" disabled>
+                            <input type="text" class="form-control" value="{{$sis_facturacions->ruc}}" disabled>
                           </div>
                         </div>
                         <div class="col-lg-6">
                          <div class="form-group">
                           <label style="margin-bottom: 1px;">Nombre de Usuario (Sunat):</label>
-                          <input type="text" class="form-control" name="nombre_usuario_sunat" placeholder="Usuario Secundario" value="{{$empresa->usuario_sunat}}" >
+                          <input type="text" class="form-control" name="nombre_usuario_sunat" placeholder="Usuario Secundario" value="{{$sis_facturacions->usuario_sunat}}" >
                         </div>
                       </div>
                       <div class="col-lg-6">
                        <div class="form-group">
                         <label style="margin-bottom: 1px;">Contraseña de Usuario (Sunat):</label>
-                        <input type="text" class="form-control" placeholder="*******"  name="psw_usuario_sunat" value="{{$empresa->contrasena_sunat}}">
+                        <input type="text" class="form-control" placeholder="*******"  name="psw_usuario_sunat" value="{{$sis_facturacions->contrasena_sunat}}">
                       </div>
                     </div>
 
@@ -133,7 +133,7 @@
                   <div class="col-lg-6">
                    <div class="form-group">
                     <label style="margin-bottom: 1px;">Contraseña de Certificado (Sunat):</label>
-                    <input type="text" class="form-control" name="psw_certificado" placeholder="*******"  value="{{$empresa->contrasena_certi}}">
+                    <input type="text" class="form-control" name="psw_certificado" placeholder="*******"  value="{{$sis_facturacions->contrasena_certi}}">
                   </div>
                 </div>
                 <div class="col-lg-12" align="center">
@@ -142,15 +142,15 @@
               </div>
               <div class="col-lg-3 " style="border-left:1px solid grey;margin-left: 5px;">
                 <div class=" row">
-                  <div class="col-sm-12" style="padding-bottom:5px"><b><i> Se debe cumplir el llenado del todos los campos para que la empresa pueda ser Activado.</i></b></div>
+                  <div class="col-sm-12" style="padding-bottom:5px"><b><i> Se debe cumplir el llenado del todos los campos para que la sis_facturacions pueda ser Activado.</i></b></div>
                   <div class="col-sm-10"><label >Documento Certificado </label></div>
-                  <div class="col-sm-2"><i @if(isset($empresa->certificado)) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif></i></div>
+                  <div class="col-sm-2"><i @if(isset($sis_facturacions->certificado)) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif></i></div>
                   <div class="col-sm-10"><label >Contraseña del Certificado </label></div>
-                  <div class="col-sm-2"><i @if(isset($empresa->contrasena_certi)) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif></i></div>
+                  <div class="col-sm-2"><i @if(isset($sis_facturacions->contrasena_certi)) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif></i></div>
                   <div class="col-sm-10"><label >Usuario de Sunat </label></div>
-                  <div class="col-sm-2"><i @if(isset($empresa->usuario_sunat)) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif></i></div>
+                  <div class="col-sm-2"><i @if(isset($sis_facturacions->usuario_sunat)) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif></i></div>
                   <div class="col-sm-10"><label >contraseña de Sunat </label></div>
-                  <div class="col-sm-2"><i @if(isset($empresa->contrasena_sunat)) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif ></i></div>
+                  <div class="col-sm-2"><i @if(isset($sis_facturacions->contrasena_sunat)) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif ></i></div>
                 </div>
               </div>
 
@@ -198,8 +198,8 @@
 <!-- switchery script -->
 <link href="{{ asset('css/plugins/switchery/switchery.css') }}" rel="stylesheet">
 <script src="{{ asset('js/plugins/switchery/switchery.js') }}"></script>
-@foreach($empresas as $empresa)
-<script>  var elem_2= document.querySelector('.js-switch_2{{$empresa->id}}');
+@foreach($sis_facturacion as $sis_facturacions)
+<script>  var elem_2= document.querySelector('.js-switch_2{{$sis_facturacions->id}}');
 var switchery_2 = new Switchery(elem_2, { color: 'green' });</script>
 @endforeach
 
@@ -215,23 +215,23 @@ var switchery_2 = new Switchery(elem_2, { color: 'green' });</script>
   });
 </script>
 
-@foreach($empresas as $empresa)
+@foreach($sis_facturacion as $sis_facturacions)
 <script>
-  var end{{$empresa->id}} = new Date("{{$empresa->created_at}}");
+  var end{{$sis_facturacions->id}} = new Date("{{$sis_facturacions->created_at}}");
   minutoSumar =2;
-  end{{$empresa->id}}.setMinutes( end{{$empresa->id}}.getMinutes() + minutoSumar);
+  end{{$sis_facturacions->id}}.setMinutes( end{{$sis_facturacions->id}}.getMinutes() + minutoSumar);
   var _second = 1000;
   var _minute = _second * 60;
-  var timer{{$empresa->id}};
+  var timer{{$sis_facturacions->id}};
 
-  function showRemaining{{$empresa->id}}() {
-    var now{{$empresa->id}} =  Date.now();
+  function showRemaining{{$sis_facturacions->id}}() {
+    var now{{$sis_facturacions->id}} =  Date.now();
     // alert(now);
-    var distance = end{{$empresa->id}} - now{{$empresa->id}};
+    var distance = end{{$sis_facturacions->id}} - now{{$sis_facturacions->id}};
     if (distance < 0) {
 
-      clearInterval(timer{{$empresa->id}});
-      document.getElementById('countdown{{$empresa->id}}').innerHTML = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModa{{$empresa->id}}"><i class="fa fa-cog"></i></button>';
+      clearInterval(timer{{$sis_facturacions->id}});
+      document.getElementById('countdown{{$sis_facturacions->id}}').innerHTML = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModa{{$sis_facturacions->id}}"><i class="fa fa-cog"></i></button>';
       // alert("terminó");
 
       return;
@@ -240,36 +240,36 @@ var switchery_2 = new Switchery(elem_2, { color: 'green' });</script>
     var seconds = Math.floor((distance % _minute) / _second);
 
     if (minutes>0) {
-      document.getElementById('countdown{{$empresa->id}}').innerHTML = minutes + 'min ';
-    }else{document.getElementById('countdown{{$empresa->id}}').innerHTML = '';
+      document.getElementById('countdown{{$sis_facturacions->id}}').innerHTML = minutes + 'min ';
+    }else{document.getElementById('countdown{{$sis_facturacions->id}}').innerHTML = '';
   }
-  document.getElementById('countdown{{$empresa->id}}').innerHTML += seconds + 'seg'  ;
+  document.getElementById('countdown{{$sis_facturacions->id}}').innerHTML += seconds + 'seg'  ;
 }
 
-timer{{$empresa->id}} = setInterval(showRemaining{{$empresa->id}}, 1000) ;
+timer{{$sis_facturacions->id}} = setInterval(showRemaining{{$sis_facturacions->id}}, 1000) ;
 </script>
 
 @endforeach
 <script type="text/javascript">
  $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 
- @foreach($empresas as $empresa)
- $(".js-switch_2{{$empresa->id}}").change(function(e){
+ @foreach($sis_facturacion as $sis_facturacions)
+ $(".js-switch_2{{$sis_facturacions->id}}").change(function(e){
   e.preventDefault();
-  var accion = {{$empresa->id}};
+  var accion = {{$sis_facturacions->id}};
   $.ajax({
     type:'PUT',
-    url:"{{ route('empresa.estado', $empresa->id) }}",
+    url:"{{ route('sis_facturacion.estado', $sis_facturacions->id) }}",
     data:{accion:accion},
     success:function(data){
-      mostrarMensaje{{$empresa->id}}(data.mensaje);
+      mostrarMensaje{{$sis_facturacions->id}}(data.mensaje);
     }
   });
 });
- function mostrarMensaje{{$empresa->id}}(mensaje){
-       $("#divmsg{{$empresa->id}}").empty(); //limpiar div
-       $("#divmsg{{$empresa->id}}").append(mensaje);
-       $("#divmsg{{$empresa->id}}").show(200);
+ function mostrarMensaje{{$sis_facturacions->id}}(mensaje){
+       $("#divmsg{{$sis_facturacions->id}}").empty(); //limpiar div
+       $("#divmsg{{$sis_facturacions->id}}").append(mensaje);
+       $("#divmsg{{$sis_facturacions->id}}").show(200);
      }
      @endforeach
    </script>

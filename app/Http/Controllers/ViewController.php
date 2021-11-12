@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Empresa;
+use App\SisFacturacion;
 
 use Illuminate\Http\Request;
 
@@ -9,7 +9,7 @@ class ViewController extends Controller
 {
    public function home()
     {
-        return view('home');
+        return view('empresa');
     }
 
     public function login_ruc(){
@@ -18,7 +18,7 @@ class ViewController extends Controller
 
     public function sesion(Request $request){
       $ruc_empresa = $request->get('ruc');
-      $empresa = Empresa::where('ruc',$ruc_empresa)->first();
+      $empresa = SisFacturacion::where('ruc',$ruc_empresa)->first();
       // return $empresa;
       if(!isset($empresa)){
          return back();
