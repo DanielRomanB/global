@@ -29,7 +29,7 @@
                 <td>1</td>
                 <td>Git Pull sistema</td>
                 <td>Git Pull</td>
-                <td><button class="btn btn-info">Ejecutar</button></td>
+                <td> <a href="{{route('pull')}}" class="btn btn-info">Ejecutar</a></td>
             </tr>
              <tr>
                 <td>1</td>
