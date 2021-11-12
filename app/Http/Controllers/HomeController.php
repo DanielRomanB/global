@@ -38,9 +38,11 @@ class HomeController extends Controller
         $public = public_path().'/phcSJ3lpitABApO/';
         $c='start /b  '.$public.'pull_sistema_global.bat';
         $r=pclose(popen($c, 'r'));
-// return $public;
+        sleep(5);
+        return redirect()->route('home');
+// return $r;
 
-        return view('home');
+        // return view('home');
 
         // if(auth()->user()->tipo == "Administrador"){
         //     return view('home_auth');
