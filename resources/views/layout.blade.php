@@ -44,15 +44,21 @@
                         </div>
                     </li>
                     <!-- MENU DESPELEGABLE -->
-                    <li><a  href="{{route('home')}}"><img src="" class="iconos"> <span class="nav-label">Inicio</span></a></li>
-                    <li><a  href="{{route('sis_facturacion.index')}}"><img src="" class="iconos"> <span class="nav-label">Sis Facturacion</span></a></li>
+                    <li><a  href="{{route('home')}}"><img src="" class="iconos"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Inicio</span></a></li>
+                    <li>
+                        <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Sistemas</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                           <li><a  href="{{route('sis_facturacion.index')}}"><img src="" class="iconos"> <span class="nav-label">Facturacion</span></a></li>
+                            <li><a  href="{{route('sis_facturacion.index')}}"><img src="" class="iconos"> <span class="nav-label">Ticket</span></a></li>
+                       </ul>
+                   </li>
 
-                <!-- MENU DESPELEGABLE -->
-            </ul>
-        </div>
-    </nav>
-    {{-- Menu Superior --}}
-    <div id="page-wrapper" class="gray-bg">
+                   <!-- MENU DESPELEGABLE -->
+               </ul>
+           </div>
+       </nav>
+       {{-- Menu Superior --}}
+       <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
