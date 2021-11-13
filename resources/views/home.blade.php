@@ -31,12 +31,12 @@
                 <td>Git Pull</td>
                 <td> <a href="{{route('pull')}}" class="btn btn-info">Ejecutar</a></td>
             </tr>
-            <tr>
+           {{--  <tr>
                 <td>1</td>
                 <td>Git Pull sistema</td>
                 <td>Git Pull</td>
                 <td> <a href="{{route('pull')}}" class="btn btn-info">Ejecutar</a></td>
-            </tr>
+            </tr> --}}
         </tbody>
     </table>
 </div>
