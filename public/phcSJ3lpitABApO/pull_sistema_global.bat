@@ -1,3 +1,3 @@
 cd /
-cd C:\laragon\www\global\
+cd C:\laragon\www\jyp-admin
 git pull
