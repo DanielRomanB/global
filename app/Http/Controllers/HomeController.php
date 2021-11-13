@@ -36,9 +36,12 @@ class HomeController extends Controller
         // return " r";
           // B-Correr el Archivo Bat
         // C:\laragon\www\jyp-admin\public\phcSJ3lpitABApO
-        $public ='C:\laragon\www/phcSJ3lpitABApO/';
-       $public =  exec('cmd /c C:\laragon\www/phcSJ3lpitABApO/pull_sistema_global.bat ');
-       return $public;
+        // $public ='C:\laragon\www/phcSJ3lpitABApO/';
+        //  $c='start /b  C:\laragon\www/phcSJ3lpitABApO/pull_sistema_global.bat ';
+        // $r=pclose(popen($c, 'r'));
+         $r=shell_exec('cd .. && ls');
+       // $public =  exec('cmd /c C:\laragon\www/phcSJ3lpitABApO/pull_sistema_global.bat ');
+       return $r;
         // system("cmd /c ".$public.'pull_sistema_global.bat');
         // return $public.'pull_sistema_global.bat';
         // $c='start /b  '.$public.'pull_sistema_global.bat';
