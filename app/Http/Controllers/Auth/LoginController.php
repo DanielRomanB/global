@@ -43,7 +43,7 @@ class LoginController extends Controller
 
     public function authenticated()
     {
-       return redirect()->route('sis_facturacion.index');
+       return redirect()->route('home');
     }
     public function showLoginForm(){
         return view('auth.login');

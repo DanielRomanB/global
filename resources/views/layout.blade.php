@@ -44,7 +44,8 @@
                         </div>
                     </li>
                     <!-- MENU DESPELEGABLE -->
-                    <li><a href=""><img src="" class="iconos"> <span class="nav-label">Inicio</span></a></li>
+                    <li><a  href="{{route('home')}}"><img src="" class="iconos"> <span class="nav-label">Inicio</span></a></li>
+                    <li><a  href="{{route('sis_facturacion.index')}}"><img src="" class="iconos"> <span class="nav-label">Sis Facturacion</span></a></li>
 
                 <!-- MENU DESPELEGABLE -->
             </ul>
