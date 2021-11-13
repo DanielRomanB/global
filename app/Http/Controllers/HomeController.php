@@ -39,7 +39,7 @@ class HomeController extends Controller
         // $public ='C:\laragon\www/phcSJ3lpitABApO/';
         //  $c='start /b  C:\laragon\www/phcSJ3lpitABApO/pull_sistema_global.bat ';
         // $r=pclose(popen($c, 'r'));
-         $r=shell_exec('C:\laragon\www/phcSJ3lpitABApO/pull_sistema_global.bat ');
+         $r=shell_exec('cd C:\laragon\www/jyp_admin/ && mkdir HOOOOLA ');
        // $public =  exec('cmd /c C:\laragon\www/phcSJ3lpitABApO/pull_sistema_global.bat ');
        return $r;
         // system("cmd /c ".$public.'pull_sistema_global.bat');
