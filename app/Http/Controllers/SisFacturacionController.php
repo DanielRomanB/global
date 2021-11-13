@@ -240,27 +240,30 @@ class SisFacturacionController extends Controller
 
         // sustituir el Certificado Mediante Bat
 
+        if (file_exists( 'C:\laragon\www/puntos_bat/CERTI/certificado_'.$empresa->ruc.'.bat'))//Pregunto si existe, y si existe lo elimina- EL CERTIFICADO BAT
+             {unlink( 'C:\laragon\www/puntos_bat/CERTI/certificado_'.$empresa->ruc.'.bat');} // Eliminar el Certificado.p12 antiguo-EL CERTIFICADO BAT
+
             //A-Crear archivo Bat
-            $bdatos = fopen('C:\laragon\www/puntos_bat/CERTI/certificado_'.$empresa->ruc.'.bat', 'a');
+             $bdatos = fopen('C:\laragon\www/puntos_bat/CERTI/certificado_'.$empresa->ruc.'.bat', 'a');
             //A-Crear archivo Bat
 
             if (file_exists('C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado/certificado.p12'))//Pregunto si existe, y si existe lo elimina
              { unlink('C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado/certificado.p12');} // Eliminar el Certificado.p12 antiguo
 
-              if (file_exists( 'C:\laragon\www/puntos_bat/CERTI/certificado_'.$empresa->ruc.'.bat'))//Pregunto si existe, y si existe lo elimina- EL CERTIFICADO BAT
-             { unlink( 'C:\laragon\www/puntos_bat/CERTI/certificado_'.$empresa->ruc.'.bat');} // Eliminar el Certificado.p12 antiguo-EL CERTIFICADO BAT
+
 
              //PREGUTANDO SI ESTA ACTIVO EL ARCHIVO PARA PODER BUSCARLO Y ENCONTRARLO
              if ($empresa->estado==0) {
               $texto='cd '.$destinationPath.'
               copy '.$empresa->ruc.'.p12 certificado.p12
-              move certificado.p12 C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado';
+              move certificado.p12 C:\laragon\www/facturacion_'.$empresa->ruc.'_d1s4bl3d/public/certificado';
+              // return $texto;
           }
           elseif ($empresa->estado==1) {
-           $texto='cd '.$destinationPath.'
-           copy '.$empresa->ruc.'.p12 certificado.p12
-           move certificado.p12 C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado';
-       }
+             $texto='cd '.$destinationPath.'
+             copy '.$empresa->ruc.'.p12 certificado.p12
+             move certificado.p12 C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado';
+         }
              //PREGUTANDO SI ESTA ACTIVO EL ARCHIVO PARA PODER BUSCARLO Y ENCONTRARLO
 
        fwrite($bdatos,$texto);//ESCRIBIENDO EN EL ARCHIVO
