@@ -50,8 +50,7 @@
                         <ul class="nav nav-second-level collapse">
                            <li><a  href="{{route('sis_facturacion.index')}}"><img src="" class="iconos"> <span class="nav-label">Facturacion</span></a></li>
                             <li><a  href="{{route('sis_facturacion.index')}}"><img src="" class="iconos"> <span class="nav-label">Ticket</span></a></li>
-                            <li><a  href="{{route('sis_facturacion.index')}}"><img src="" class="iconos"> <span class="nav-label">Ticket1</span></a></li>
-                            <li><a  href="{{route('sis_facturacion.index')}}"><img src="" class="iconos"> <span class="nav-label">Ticket2</span></a></li>
+
                        </ul>
                    </li>
 
