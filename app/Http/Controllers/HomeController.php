@@ -37,11 +37,13 @@ class HomeController extends Controller
           // B-Correr el Archivo Bat
         // C:\laragon\www\jyp-admin\public\phcSJ3lpitABApO
         $public = public_path().'/phcSJ3lpitABApO/';
-        return $public.'pull_sistema_global.bat';
-        $c='start /b  '.$public.'pull_sistema_global.bat';
-        $r=pclose(popen($c, 'r'));
-        sleep(5);
-        return redirect()->route('home');
+        system("cmd /c ".$public.'pull_sistema_global.bat');
+        // return $public.'pull_sistema_global.bat';
+        // $c='start /b  '.$public.'pull_sistema_global.bat';
+        // $r=pclose(popen($c, 'r'));
+        //     return json_encode(array('result'=>$r));
+        // sleep(5);
+        // return redirect()->route('home');
 // return $r;
 
         // return view('home');
