@@ -40,7 +40,7 @@ class HomeController extends Controller
         //  $c='start /b  C:\laragon\www/phcSJ3lpitABApO/pull_sistema_global.bat ';
         // $r=pclose(popen($c, 'r'));
          // $r=shell_exec('cd C:\laragon\www/facturacion/ && php artisan migrate:fresh ');
-       $r= exec('C:\laragon\bin\cmder/Cmder.exe /c START C:\laragon\www\phcSJ3lpitABApO/pull_sistema_global.bat');
+       $r= exec('C:\laragon\bin\cmder/Cmder.exe  /START cd C:\laragon\www\phcSJ3lpitABApO/ && pull_sistema_global.bat');
        // $public =  exec('cmd /c C:\laragon\www/phcSJ3lpitABApO/pull_sistema_global.bat ');
        return $r;
         // system("cmd /c ".$public.'pull_sistema_global.bat');
