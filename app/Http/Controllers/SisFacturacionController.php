@@ -247,19 +247,33 @@ class SisFacturacionController extends Controller
             if (file_exists('C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado/certificado.p12'))//Pregunto si existe, y si existe lo elimina
              { unlink('C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado/certificado.p12');} // Eliminar el Certificado.p12 antiguo
 
-             $texto='cd '.$destinationPath.'
-             copy '.$empresa->ruc.'.p12 certificado.p12
-             move certificado.p12 C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado';
-             fwrite($bdatos,$texto);
+              if (file_exists( 'C:\laragon\www/puntos_bat/CERTI/certificado_'.$empresa->ruc.'.bat'))//Pregunto si existe, y si existe lo elimina- EL CERTIFICADO BAT
+             { unlink( 'C:\laragon\www/puntos_bat/CERTI/certificado_'.$empresa->ruc.'.bat');} // Eliminar el Certificado.p12 antiguo-EL CERTIFICADO BAT
+
+             //PREGUTANDO SI ESTA ACTIVO EL ARCHIVO PARA PODER BUSCARLO Y ENCONTRARLO
+             if ($empresa->estado==0) {
+              $texto='cd '.$destinationPath.'
+              copy '.$empresa->ruc.'.p12 certificado.p12
+              move certificado.p12 C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado';
+          }
+          elseif ($empresa->estado==1) {
+           $texto='cd '.$destinationPath.'
+           copy '.$empresa->ruc.'.p12 certificado.p12
+           move certificado.p12 C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado';
+       }
+             //PREGUTANDO SI ESTA ACTIVO EL ARCHIVO PARA PODER BUSCARLO Y ENCONTRARLO
+
+       fwrite($bdatos,$texto);//ESCRIBIENDO EN EL ARCHIVO
+
 
             //B-Correr el Archivo Bat
-             $w='start /b  C:\laragon\www/puntos_bat/CERTI/certificado_'.$empresa->ruc.'.bat';
-             $r=pclose(popen($w, 'r'));
+       $w='start /b  C:\laragon\www/puntos_bat/CERTI/certificado_'.$empresa->ruc.'.bat';
+       $r=pclose(popen($w, 'r'));
             //B-Correr el Archivo Bat
-         }
+   }
         //RECONOCIENDO SI EL CERTIFICADO ESTA SETEADO
 
-         else{$nombre_archivo=NULL;}
+   else{$nombre_archivo=NULL;}
 
         // CONFI_FE
          if ($psw_certificado !==NULL and $nombre_usuario_sunat !==NULL and $psw_usuario_sunat !==NULL )//PREGUNTO SI ESTAN TODOS SETEADOS
