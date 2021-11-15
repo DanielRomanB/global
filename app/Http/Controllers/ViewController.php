@@ -25,7 +25,7 @@ class ViewController extends Controller
       }elseif($empresa->estado == 0){
           return back()->withErrors(['La empresa :'. $empresa->name.' se encuentra inactiva actualmente']);
       }else{
-         return redirect('http://jypsac.dyndns.org:190/'.$ruc_empresa.'/public/');
+         return redirect('http://jypsac.dyndns.org:190/facturacion_'.$ruc_empresa.'/public/');
       }
 
     }
