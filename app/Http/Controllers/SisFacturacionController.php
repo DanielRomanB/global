@@ -86,7 +86,11 @@ class SisFacturacionController extends Controller
     //1- Crear directorio de Laravel
         //A-Crear archivo Bat para clonar
         $copy_page = fopen("C:\laragon\www/puntos_bat/facturacion_".$nombre.".bat", 'a');
-        $texto='robocopy C:\laragon\www\facturacion  C:\laragon\www/facturacion_'.$nombre.'_d1s4bl3d /e';
+        $texto='robocopy C:\laragon\www\facturacion  C:\laragon\www/facturacion_'.$nombre.'_d1s4bl3d /e
+        cd/
+        cd C:\laragon\www/puntos_bat/
+        DEL /F /A facturacion_'.$nombre.'.bat
+        ';
         fwrite($copy_page,$texto);
         // fclose($copy_page);
 
@@ -99,7 +103,11 @@ class SisFacturacionController extends Controller
         $bdatos = fopen('C:\laragon\www/puntos_bat/bd_'.$nombre.'.bat', 'a');
         $texto2='cd/
         cd C:\laragon\bin\mysql\mysql-5.7.33-winx64\bin
-        mysql -u root -e " create DATABASE facturacion_'.$nombre.' ;"';
+        mysql -u root -e " create DATABASE facturacion_'.$nombre.' ;"
+        cd/
+        cd C:\laragon\www/puntos_bat/
+        DEL /F /A bd_'.$nombre.'.bat
+        ';
         fwrite($bdatos,$texto2);
         //B-Correr el Archivo Bat
         $w='start /b  C:\laragon\www/puntos_bat/bd_'.$nombre.'.bat';
@@ -268,13 +276,20 @@ class SisFacturacionController extends Controller
              if ($empresa->estado==0) {
               $texto='cd '.$destinationPath.'
               copy '.$empresa->ruc.'.p12 certificado.p12
-              move certificado.p12 C:\laragon\www/facturacion_'.$empresa->ruc.'_d1s4bl3d/public/certificado';
+              move certificado.p12 C:\laragon\www/facturacion_'.$empresa->ruc.'_d1s4bl3d/public/certificado
+              cd/
+              cd C:\laragon\www/puntos_bat/CERTI/
+              DEL /F /A certificado_'.$empresa->ruc.'.bat
+              ';
               // return $texto;
           }
           elseif ($empresa->estado==1) {
            $texto='cd '.$destinationPath.'
            copy '.$empresa->ruc.'.p12 certificado.p12
-           move certificado.p12 C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado';
+           move certificado.p12 C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado
+           cd/
+           cd C:\laragon\www/puntos_bat/CERTI/
+           DEL /F /A certificado_'.$empresa->ruc.'.bat';
        }
              //PREGUTANDO SI ESTA ACTIVO EL ARCHIVO PARA PODER BUSCARLO Y ENCONTRARLO
 
