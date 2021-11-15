@@ -98,7 +98,7 @@ class SisFacturacionController extends Controller
         //A-Crear archivo Bat para crear BD
         $bdatos = fopen('C:\laragon\www/puntos_bat/bd_'.$nombre.'.bat', 'a');
         $texto2='cd/
-        cd laragon\bin\mysql\mysql-5.7.24-winx64\bin
+        cd C:\laragon\bin\mysql\mysql-5.7.33-winx64\bin
         mysql -u root -e " create DATABASE facturacion_'.$nombre.' ;"';
         fwrite($bdatos,$texto2);
         //B-Correr el Archivo Bat
