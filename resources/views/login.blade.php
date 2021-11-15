@@ -1,94 +1,150 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="container ">
-    @if($errors->any())
+
+
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header">
+                <center><h3 class="letra">Introduzca R.U.C de Empresa</h3></center>
+                 {{-- @if($errors->any()) --}}
     <div class="alert alert-danger" style="margin-top: 10px;margin-bottom: 0px;">
         <a class="alert-link" href="#">
-        @foreach ($errors->all() as $error)
-            <li class="error" style="color: red">{{ $error }}</li>
-        @endforeach
+        {{-- @foreach ($errors->all() as $error) --}}
+            <li class="error" style="color: red">{{-- {{ $error }} --}}ssss</li>
+        {{-- @endforeach --}}
         </a>
     </div>
-    <br>
-    @endif
-    <div class="row justify-content-center div_center ">
-        <div class="col-md-8">
-            <div class="overlay">
-                <div class="card ">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
+    {{-- @endif --}}
+            </div>
+            <div class="card-body"  >
                     <form method="POST" action="{{ route('sesion') }}" >
                         @csrf
-                        <div class="form-group row">
-                            <label for="ruc" class="col-md-4 col-form-label text-md-right">R.U.C</label>
-
-                            <div class="col-md-6">
-                                <input id="ruc" type="text" class="form-control @error('ruc') is-invalid @enderror" name="ruc" value="{{ old('ruc') }}" required autocomplete="ruc" autofocus>
-
-                                @error('ruc')
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas id-card"></i> </span>
+                        </div>
+                        <!-- <input type="text" class="form-control" placeholder="Nombre Usuario" > -->
+                         <input  id="ruc" type="number" class="form-control @error('ruc') is-invalid @enderror" name="ruc" value="{{ old('ruc') }}" required autocomplete="ruc" autofocus placeholder="RUC">
+                          @error('ruc')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
-                            <input id="password" type="password" hidden="" value="1" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                        </div>
+                    </div>
 
-                            {{-- </div>
-                        </div> --}}
 
-                        {{-- <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div> --}}
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                    <center><div class="form-group " >
+                        <!-- <input type="submit" value="Iniciar" class="btn  login_btn cwhite"> -->
+                        <button type="submit" class=" btn login_btn cwhite">
                                     {{ __('Login') }}
-                                </button>
-
-                                {{-- @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif --}}
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                                </button><br>
+                    </div></center>
+                </form>
             </div>
         </div>
     </div>
 </div>
-{{-- <style type="text/css">
-    .card{
-        /*top: 100%;*/
-        margin: 30px;
-        margin-top: 30px;
-        margin-bottom: 30px;
-    }
-    .overlay{
-        top: 100%;
-        background-color: #8cb2d969;
-        padding-top: 1px;
-        padding-bottom: 1px;
-        border-radius: 15px;
-        border: 2px  grey solid;
-        box-shadow: 10px 5px black ;
-    }
-    body{
-         background-color: #d2d98c;
-        }
-</style> --}}
+<style type="text/css">
+
+/*@import url('https://fonts.googleapis.com/css?family=Numans');
+https://images2.alphacoders.com/361/thumb-1920-36170.jpg
+*/
+
+html,body{
+background-image: url('{{ asset('/leonosoft.jpg')}}');
+background-position: center center;
+background-attachment: fixed;
+background-size: cover;
+background-repeat: no-repeat;
+font-family: 'Numans', sans-serif;
+}
+.pt-4, .py-4{
+        padding-top: 12% !important;
+}
+.container{
+height: 100%;
+align-content: center;
+}
+
+.card{
+/*height: 370px;*/
+margin-top: auto;
+margin-bottom: auto;
+width: 400px;
+background-color: rgba(0,0,0,0.5) !important;
+}
+
+.social_icon span{
+font-size: 60px;
+margin-left: 10px;
+color: #3F7B26;
+}
+
+.social_icon span:hover{
+color: white;
+cursor: pointer;
+}
+
+.card-header h3{
+color: white;
+}
+
+.social_icon{
+position: absolute;
+right: 20px;
+top: -45px;
+}
+
+.input-group-prepend span{
+width: 50px;
+background-color: #3F7B26;
+color: black;
+border:0 !important;
+}
+
+input:focus{
+outline: 0 0 0 0  !important;
+box-shadow: 0 0 0 0 !important;
+
+}
+
+.remember{
+color: white;
+}
+
+.remember input
+{
+width: 15px;
+height: 15px;
+margin-left: 15px;
+margin-right: 5px;
+}
+
+.login_btn{
+color: black;
+background-color: #3F7B26;
+width: 100px;
+}
+
+.login_btn:hover{
+color: black;
+background-color: white;
+}
+
+.links{
+color: white;
+}
+
+.links a{
+margin-left: 4px;
+}
+.cwhite{
+  color: white;
+}
+.letra{
+    font-family: Arial, Helvetica, sans-serif;
+}
+</style>
 @endsection
