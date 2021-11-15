@@ -21,7 +21,9 @@ class ViewController extends Controller
       $empresa = SisFacturacion::where('ruc',$ruc_empresa)->first();
       // return $empresa;
       if(!isset($empresa)){
-         return back();
+          return back()->withErrors(['La Empresa con el R.U.C: '. $ruc_empresa.' No existe.']);
+      }elseif($empresa->estado == 0){
+          return back()->withErrors(['La empresa :'. $empresa->name.' se encuentra inactiva actualmente']);
       }else{
          return redirect('http://jypsac.dyndns.org:190/'.$ruc_empresa.'/public/');
       }

@@ -2,6 +2,16 @@
 
 @section('content')
 <div class="container ">
+    @if($errors->any())
+    <div class="alert alert-danger" style="margin-top: 10px;margin-bottom: 0px;">
+        <a class="alert-link" href="#">
+        @foreach ($errors->all() as $error)
+            <li class="error" style="color: red">{{ $error }}</li>
+        @endforeach
+        </a>
+    </div>
+    <br>
+    @endif
     <div class="row justify-content-center div_center ">
         <div class="col-md-8">
             <div class="overlay">
