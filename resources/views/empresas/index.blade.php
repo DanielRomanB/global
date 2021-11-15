@@ -28,7 +28,7 @@
             <div class="col-lg-12">
              <div class="form-group">
               <label style="margin-bottom: 1px;">RUC*</label>
-              <input type="text" class="form-control"  autocomplete="off" required name="ruc">
+              <input type="text" class="form-control"  autocomplete="off" required name="ruc" maxlength="11" minlength="11">
             </div>
           </div>
         </div>
