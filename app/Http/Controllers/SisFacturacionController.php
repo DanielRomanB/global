@@ -74,9 +74,13 @@ class SisFacturacionController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $nombre=$request->get('ruc');
+        $busqueda=SisFacturacion::where('ruc',$nombre)->first();
+        if ($busqueda) {
+            return back()->withErrors(['El numero de R.U.C:'. $nombre.' ya esta creado, revise bien su Registro.']);
+        }
+
+
         // $nombre= (string)$nombre;
 
     //1- Crear directorio de Laravel

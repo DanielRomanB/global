@@ -9,6 +9,15 @@
 @section('button2', 'Inicio')
 
 @section('content')
+  @if($errors->any())
+           <div class="alert alert-danger" style="margin-top: 10px;margin-bottom: 0px;">
+                <a class="alert-link" href="#">
+                @foreach ($errors->all() as $error)
+                    <li class="error" style="color: red">{{ $error }}</li>
+                @endforeach
+                </a>
+            </div>
+        @endif
 <div class="modal fade" id="modalagregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <form action="{{route('sis_facturacion.store')}}" enctype="multipart/form-data" method="post">
