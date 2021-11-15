@@ -23,7 +23,7 @@ class ViewController extends Controller
       if(!isset($empresa)){
          return back();
       }else{
-         return redirect('http://jypsac.dyndns.org:190/'.$ruc_empresa.'/public/');
+         return redirect('http://jypsac.dyndns.org:190/facturacion_'.$ruc_empresa.'/public/');
       }
 
     }
