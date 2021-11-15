@@ -158,14 +158,7 @@ class SisFacturacionController extends Controller
         ';
         fwrite($env,$texto_env);
 
-    //4- Refresh seeder
-        //A-Crear archivo Bat para crear las migraciones
-        $migrate = fopen('C:\laragon\www/puntos_bat/BD/php_fresh_'.$nombre.'.bat', 'a');
-        $texto_migrate='cd/
-        cd laragon\www/facturacion_'.$nombre.'_d1s4bl3d
-        php artisan migrate:fresh
-        php artisan migrate:fresh --seed';
-        fwrite($migrate,$texto_migrate);
+
 
 
         // B-Correr el Archivo Bat
@@ -187,6 +180,21 @@ class SisFacturacionController extends Controller
         $user_facturacion->nombre_carpeta ='facturacion_'.$nombre;
         $user_facturacion->nombre_carpeta_desactivado ='facturacion_'.$nombre.'_d1s4bl3d';
         $user_facturacion->save();
+
+         //A-Crear archivo Bat para crear las migraciones
+        $migrate = fopen('C:\laragon\www/puntos_bat/BD/php_fresh_'.$nombre.'.bat', 'a');
+        $texto_migrate='cd/
+        cd laragon\www/facturacion_'.$nombre.'_d1s4bl3d
+        php artisan migrate:fresh
+        php artisan migrate:fresh --seed
+        cd/
+        cd C:\laragon\bin\mysql\mysql-5.7.33-winx64\bin
+        mysql -u root -e "use jyp_admin; UPDATE sis_facturacion SET estado_migracion_bd="1" WHERE id="'.$user_facturacion->id.'" "
+        cd/
+        cd C:\laragon\www/puntos_bat/BD
+        DEL /F /A php_fresh_'.$nombre.'.bat
+        ';
+        fwrite($migrate,$texto_migrate);
         return back();
     }
 
@@ -264,10 +272,10 @@ class SisFacturacionController extends Controller
               // return $texto;
           }
           elseif ($empresa->estado==1) {
-             $texto='cd '.$destinationPath.'
-             copy '.$empresa->ruc.'.p12 certificado.p12
-             move certificado.p12 C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado';
-         }
+           $texto='cd '.$destinationPath.'
+           copy '.$empresa->ruc.'.p12 certificado.p12
+           move certificado.p12 C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado';
+       }
              //PREGUTANDO SI ESTA ACTIVO EL ARCHIVO PARA PODER BUSCARLO Y ENCONTRARLO
 
        fwrite($bdatos,$texto);//ESCRIBIENDO EN EL ARCHIVO

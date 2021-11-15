@@ -37,7 +37,7 @@
             <div class="col-lg-12">
              <div class="form-group">
               <label style="margin-bottom: 1px;">RUC*</label>
-              <input type="text" class="form-control"  autocomplete="off" required name="ruc" maxlength="11" minlength="11">
+                  <input type="text" class="form-control" autocomplete="off" onkeyup="this.value=Numeros(this.value)" name="ruc" required="" maxlength="11" minlength="11">
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@
                        <h1><b>{{$sis_facturacions->name}}</b></h1>
                      </div>
                      <div class="col-lg-2" align="right">
-                      @if($sis_facturacions->certificado!==NULL and $sis_facturacions->usuario_sunat!==NULL and $sis_facturacions->contrasena_sunat!==NULL and $sis_facturacions->contrasena_certi!==NULL)
+                      @if($sis_facturacions->certificado!==NULL and $sis_facturacions->usuario_sunat!==NULL and $sis_facturacions->contrasena_sunat!==NULL and $sis_facturacions->contrasena_certi!==NULL and $sis_facturacions->estado_migracion_bd==1)
                       @if($sis_facturacions->estado==0)<input  type="checkbox" class="js-switch_2{{$sis_facturacions->id}}" />
                       @else<input  type="checkbox" class="js-switch_2{{$sis_facturacions->id}}" checked />@endif
                       @endif
@@ -205,7 +205,22 @@
 <script>  var elem_2= document.querySelector('.js-switch_2{{$sis_facturacions->id}}');
 var switchery_2 = new Switchery(elem_2, { color: 'green' });</script>
 @endforeach
+<script>
+  function Numeros(string){//Solo numeros
+  var out = '';
+    var filtro = '0123456789';//Caracteres validos
 
+    //Recorrer el texto y verificar si el caracter se encuentra en la lista de validos
+    for (var i=0; i<string.length; i++)
+      if (filtro.indexOf(string.charAt(i)) != -1)
+             //Se añaden a la salida los caracteres validos
+         out += string.charAt(i);
+
+    //Retornar valor filtrado
+    return out;
+}
+</script>
+</script>
 <!-- Page-Level Scripts -->
 <script>
   $(document).ready(function(){
