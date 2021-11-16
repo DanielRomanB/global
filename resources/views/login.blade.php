@@ -8,11 +8,11 @@
                 <center><h3 class="letra">Introduzca R.U.C de Empresa</h3></center>
                 @if($errors->any())
                 <div class="alert alert-danger" style="margin-top: 10px;margin-bottom: 0px;">
-                    <a class="alert-link" href="#" style="color:white;">
+                    <span class="alert-link"  style="color:white;">
                         @foreach ($errors->all() as $error)
                         <li class="error" style="color: white;">{{ $error }}</li>
                         @endforeach
-                    </a>
+                    </span>
                 </div>
                 @endif
             </div>
@@ -24,7 +24,7 @@
                             <span class="input-group-text"><i class="fa fa-id-card" style="color:white;font-size: 25px;text-align: center;"></i></span>
                         </div>
                         <!-- <input type="text" class="form-control" placeholder="Nombre Usuario" > -->
-                        <input  id="ruc" type="number" class="form-control @error('ruc') is-invalid @enderror" name="ruc" value="{{ old('ruc') }}"  placeholder="RUC" autocomplete="off">
+                        <input  id="ruc" type="number" class="form-control @error('ruc') is-invalid @enderror" name="ruc" value="{{ old('ruc') }}"  placeholder="RUC" autocomplete="off" maxlength="11" required="">
                         @error('ruc')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -68,7 +68,7 @@ https://images2.alphacoders.com/361/thumb-1920-36170.jpg
             color: #04a50900;
             background-color: #d7d7d738;
             border-color: #1e1e1e00;
-            padding: 4px 10px;
+            padding: 8px 10px;
         }
 
         .card{
