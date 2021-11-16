@@ -375,7 +375,8 @@ class SisFacturacionController extends Controller
 
                     $see->setCertificate($certificate->export(X509ContentType::PEM));
         //  $see->setCertificate(file_get_contents(public_path("certificado\certificate.pem")));
-                    $see->setService(SunatEndpoints::FE_BETA);
+                    $see->setService(SunatEndpoints::FE_PRODUCCION);
+                   // $see->setService(SunatEndpoints::FE_BETA);
         //  $see->setClaveSOL("20000000001", "MODDATOS", "moddatos");
                     $see->setClaveSOL("'.$empresa->ruc.'", "'.$nombre_usuario_sunat.'", "'.$psw_usuario_sunat.'");
                     return $see;
