@@ -6,8 +6,8 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Login-Empresas') }}</title>
+<link rel="icon"  sizes='114x114' type="image/png" href="{{ asset('leonosoft.png') }}" />
+    <title>Login-Empresas</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

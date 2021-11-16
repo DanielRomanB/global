@@ -3,6 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon"  sizes='114x114' type="image/png" href="{{ asset('leonosoft.png') }}" />
 
     <link href="{{ asset('/archivos/imagenes/servicios/')}}/@yield('3', auth()->user()->id)" rel="shortcut icon" />
     <title>@yield('title', 'Inicio')/@yield('3', auth()->user()->id)</title>
@@ -48,17 +49,17 @@
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Sistemas</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                           <li><a  href="{{route('sis_facturacion.index')}}"><img src="" class="iconos"> <span class="nav-label">Facturacion</span></a></li>
-                            <li><a  href="{{route('sis_facturacion.index')}}"><img src="" class="iconos"> <span class="nav-label">Ticket</span></a></li>
-                       </ul>
-                   </li>
+                         <li><a  href="{{route('sis_facturacion.index')}}"><img src="" class="iconos"> <span class="nav-label">Facturacion</span></a></li>
+                         <li><a  href="{{route('sis_facturacion.index')}}"><img src="" class="iconos"> <span class="nav-label">Ticket</span></a></li>
+                     </ul>
+                 </li>
 
-                   <!-- MENU DESPELEGABLE -->
-               </ul>
-           </div>
-       </nav>
-       {{-- Menu Superior --}}
-       <div id="page-wrapper" class="gray-bg">
+                 <!-- MENU DESPELEGABLE -->
+             </ul>
+         </div>
+     </nav>
+     {{-- Menu Superior --}}
+     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
