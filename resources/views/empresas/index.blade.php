@@ -66,6 +66,7 @@
                 <th>Fecha Creacion</th>
                 <th>estado</th>
                 <th></th>
+                <th></th>
               </th>
             </thead>
             <tbody>
@@ -77,6 +78,7 @@
                 <td>{{$sis_facturacions->created_at}}</td>
                 <td>@if($sis_facturacions->estado == "1")Activo @else Desactivo @endif</td>
                 <td>@if($sis_facturacions->estado_duplicado == "1")<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModa{{$sis_facturacions->id}}"><i class="fa fa-cog"></i></button> @else <div id="countdown{{$sis_facturacions->id}}"></div>@endif</td>
+                <td align="center"><a href="http://jypsac.dyndns.org:190/facturacion_{{$sis_facturacions->ruc}}/public" style="color: #15151894;" target="_blank"><i class="fa fa-external-link-square" style="font-size:20px !important;"></i></a></td>
               </tr>
               <div class="modal inmodal fade" id="myModa{{$sis_facturacions->id}}" tabindex="-1" role="dialog"  aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -160,6 +162,8 @@
                   <div class="col-sm-2"><i @if(isset($sis_facturacions->usuario_sunat)) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif></i></div>
                   <div class="col-sm-10"><label >contraseña de Sunat </label></div>
                   <div class="col-sm-2"><i @if(isset($sis_facturacions->contrasena_sunat)) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif ></i></div>
+                   <div class="col-sm-10"><label >Migracion de Base de Datos</label></div>
+                  <div class="col-sm-2"><i @if($sis_facturacions->estado_migracion_bd==1) class="fa fa-check-circle" @else class="fa fa-times-circle" @endif ></i></div>
                 </div>
               </div>
             </div>
