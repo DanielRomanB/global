@@ -63,6 +63,7 @@
                 <th style="width: 8px;">Item</th>
                 <th>Nombre</th>
                 <th>RUC</th>
+                <th>Descripcion</th>
                 <th>Fecha Creacion</th>
                 <th>estado</th>
                 <th></th>
@@ -75,6 +76,7 @@
                 <td>{{$sis_facturacions->id}}</td>
                 <td>{{$sis_facturacions->name}}</td>
                 <td>{{$sis_facturacions->ruc}}</td>
+                <td>{{$sis_facturacions->descripcion}}</td>
                 <td>{{$sis_facturacions->created_at}}</td>
                 <td>@if($sis_facturacions->estado == "1")Activo @else Desactivo @endif</td>
                 <td>@if($sis_facturacions->estado_duplicado == "1")<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModa{{$sis_facturacions->id}}"><i class="fa fa-cog"></i></button> @else <div id="countdown{{$sis_facturacions->id}}"></div>@endif</td>
@@ -145,6 +147,12 @@
                    <div class="form-group">
                     <label style="margin-bottom: 1px;">Contraseña de Certificado (Sunat):</label>
                     <input type="text" class="form-control" name="psw_certificado" placeholder="*******"  value="{{$sis_facturacions->contrasena_certi}}">
+                  </div>
+                </div>
+                  <div class="col-lg-12">
+                     <div class="form-group">
+                    <label style="margin-bottom: 1px;">Descripcion:</label>
+                    <textarea name="descripcion" class="form-control">{{$sis_facturacions->descripcion}}</textarea>
                   </div>
                 </div>
                 <div class="col-lg-12" align="center">
