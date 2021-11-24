@@ -284,13 +284,13 @@ class SisFacturacionController extends Controller
               // return $texto;
           }
           elseif ($empresa->estado==1) {
-           $texto='cd '.$destinationPath.'
-           copy '.$empresa->ruc.'.p12 certificado.p12
-           move certificado.p12 C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado
-           cd/
-           cd C:\laragon\www/puntos_bat/CERTI/
-           DEL /F /A certificado_'.$empresa->ruc.'.bat';
-       }
+             $texto='cd '.$destinationPath.'
+             copy '.$empresa->ruc.'.p12 certificado.p12
+             move certificado.p12 C:\laragon\www/facturacion_'.$empresa->ruc.'/public/certificado
+             cd/
+             cd C:\laragon\www/puntos_bat/CERTI/
+             DEL /F /A certificado_'.$empresa->ruc.'.bat';
+         }
              //PREGUTANDO SI ESTA ACTIVO EL ARCHIVO PARA PODER BUSCARLO Y ENCONTRARLO
 
        fwrite($bdatos,$texto);//ESCRIBIENDO EN EL ARCHIVO
@@ -490,15 +490,59 @@ class SisFacturacionController extends Controller
                     $estado_empresa->estado=1;
                     $estado_empresa->save();
 
-                    return response()->json(['mensaje'=>'<div class="alert alert-info alert-dismissable"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>La Empresa "'.$estado_empresa->name.'" ha sido <b>Activado</b> Exitosamente</div> ']);
-                }
-                elseif ($estado_empresa->estado==1) {
-                    rename("C:\laragon\www/".$estado_empresa->nombre_carpeta , "C:\laragon\www/".$estado_empresa->nombre_carpeta_desactivado);
-                    $estado_empresa->estado=0;
-                    $estado_empresa->save();
-                    return response()->json(['mensaje'=>'<div class="alert alert-warning alert-dismissable"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>La Empresa "'.$estado_empresa->name.'" ha sido <b>Desactivado</b> Exitosamente</div> ']);
-                }
+                    $empresa_activas=SisFacturacion::where('estado','1')->get();
+                    $texto2='cd /
+                    cd C:\laragon\www/facturacion
+                    git pull
+                    ';
 
-            }
+                    /*CREAR GIT PULL*/
+                    if (file_exists('C:\laragon\www/git_pull_facturaciones.bat'))
+                    {
+                        unlink('C:\laragon\www/git_pull_facturaciones.bat');
+                        //A-Crear archivo Bat para crear BD
+                        $bdatos = fopen('C:\laragon\www/git_pull_facturaciones.bat', 'a');
+                        foreach ($empresa_activas as $empresa_activass) {
+                         $texto2=$texto2.'cd/
+                         cd C:\laragon\www/facturacion_'.$empresa_activass->ruc.'
+                         git pull
+                         ';
+                     }
+                        // $texto2='333333333';
+                     fwrite($bdatos,$texto2);
+                 }
+                 /*CREAR GIT PULL*/
 
-        }
+                 return response()->json(['mensaje'=>'<div class="alert alert-info alert-dismissable"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>La Empresa "'.$estado_empresa->name.'" ha sido <b>Activado</b> Exitosamente</div> ']);
+             }
+             elseif ($estado_empresa->estado==1) {
+                rename("C:\laragon\www/".$estado_empresa->nombre_carpeta , "C:\laragon\www/".$estado_empresa->nombre_carpeta_desactivado);
+                $estado_empresa->estado=0;
+                $estado_empresa->save();
+                $empresa_activas=SisFacturacion::where('estado','1')->get();
+                $texto2='cd /
+                cd C:\laragon\www/facturacion
+                git pull
+                ';
+                /*CREAR GIT PULL*/
+                if (file_exists('C:\laragon\www/git_pull_facturaciones.bat'))
+                {
+                    unlink('C:\laragon\www/git_pull_facturaciones.bat');
+                        //A-Crear archivo Bat para crear BD
+                    $bdatos = fopen('C:\laragon\www/git_pull_facturaciones.bat', 'a');
+                    foreach ($empresa_activas as $empresa_activass) {
+                     $texto2=$texto2.'cd/
+                     cd C:\laragon\www/facturacion_'.$empresa_activass->ruc.'
+                     git pull
+                     ';
+                 }
+                        // $texto2='333333333';
+                 fwrite($bdatos,$texto2);
+             }
+             /*CREAR GIT PULL*/
+             return response()->json(['mensaje'=>'<div class="alert alert-warning alert-dismissable"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>La Empresa "'.$estado_empresa->name.'" ha sido <b>Desactivado</b> Exitosamente</div> ']);
+         }
+
+     }
+
+ }
