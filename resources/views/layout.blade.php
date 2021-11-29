@@ -50,7 +50,7 @@
                         <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Sistemas</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                          <li><a  href="{{route('sis_facturacion.index')}}"><img src="" class="iconos"> <span class="nav-label">Facturacion</span></a></li>
-                         <li><a  href="{{route('sis_facturacion.index')}}"><img src="" class="iconos"> <span class="nav-label">Ticket</span></a></li>
+                         <li><a  href="{{route('sis_ticket.index')}}"><img src="" class="iconos"> <span class="nav-label">Ticket</span></a></li>
                      </ul>
                  </li>
 

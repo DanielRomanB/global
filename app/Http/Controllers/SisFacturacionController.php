@@ -53,7 +53,7 @@ class SisFacturacionController extends Controller
  //    }
 
 
-        return view('empresas.index',compact('sis_facturacion'));
+        return view('sistemas.sis_facturacion.index',compact('sis_facturacion'));
     }
 
     /**
@@ -100,17 +100,17 @@ class SisFacturacionController extends Controller
 
     //2- Crear Base de Datos
         //A-Crear archivo Bat para crear BD
-        $bdatos = fopen('C:\laragon\www/puntos_bat/bd_'.$nombre.'.bat', 'a');
+        $bdatos = fopen('C:\laragon\www/puntos_bat/bd_facturacion_'.$nombre.'.bat', 'a');
         $texto2='cd/
         cd C:\laragon\bin\mysql\mysql-5.7.33-winx64\bin
         mysql -u root -e " create DATABASE facturacion_'.$nombre.' ;"
         cd/
         cd C:\laragon\www/puntos_bat/
-        DEL /F /A bd_'.$nombre.'.bat
+        DEL /F /A bd_facturacion_'.$nombre.'.bat
         ';
         fwrite($bdatos,$texto2);
         //B-Correr el Archivo Bat
-        $w='start /b  C:\laragon\www/puntos_bat/bd_'.$nombre.'.bat';
+        $w='start /b  C:\laragon\www/puntos_bat/bd_facturacion_'.$nombre.'.bat';
         $r=pclose(popen($w, 'r'));
         sleep(5);
 
@@ -190,7 +190,7 @@ class SisFacturacionController extends Controller
         $user_facturacion->save();
 
          //A-Crear archivo Bat para crear las migraciones
-        $migrate = fopen('C:\laragon\www/puntos_bat/BD/php_fresh_'.$nombre.'.bat', 'a');
+        $migrate = fopen('C:\laragon\www/puntos_bat/BD/php_fresh_facturacion_'.$nombre.'.bat', 'a');
         $texto_migrate='cd/
         cd laragon\www/facturacion_'.$nombre.'_d1s4bl3d
         php artisan migrate:fresh
@@ -200,7 +200,7 @@ class SisFacturacionController extends Controller
         mysql -u root -e "use jyp_admin; UPDATE sis_facturacion SET estado_migracion_bd="1" WHERE id="'.$user_facturacion->id.'" "
         cd/
         cd C:\laragon\www/puntos_bat/BD
-        DEL /F /A php_fresh_'.$nombre.'.bat
+        DEL /F /A php_fresh_facturacion_'.$nombre.'.bat
         ';
         fwrite($migrate,$texto_migrate);
         return back();

@@ -20,11 +20,17 @@ Route::group(
         Route::get('/login' , 'ViewController@home')->name('inicio');
         Route::get('/pull' , 'HomeController@pull')->name('pull');
 
-        Route::resource('/empresa','EmpresaController')->except(['destroy']);;
-        Route::put('/empresa/estado/{id}','EmpresaController@estado')->name('empresa.estado');
+        // Route::resource('/empresa','EmpresaController')->except(['destroy']);;
+        // Route::put('/empresa/estado/{id}','EmpresaController@estado')->name('empresa.estado');
 
+    //SISTEMAS
+        //FACTURACION
         Route::resource('/sis_facturacion','SisFacturacionController')->except(['destroy']);;
         Route::put('/sis_facturacion/estado/{id}','SisFacturacionController@estado')->name('sis_facturacion.estado');
+
+        //TICKET
+        Route::resource('/sis_ticket','SisTicketController')->except(['destroy']);;
+        Route::put('/sis_ticket/estado/{id}','SisTicketController@estado')->name('sis_ticket.estado');
     }
 );
 // Route::get('/clear',function(){
