@@ -80,129 +80,73 @@ class SisFacturacionController extends Controller
             return back()->withErrors(['El numero de R.U.C:'. $nombre.' ya esta creado, revise bien su Registro.']);
         }
 
-
-        // $nombre= (string)$nombre;
-
-    //1- Crear directorio de Laravel
+    //* 1- Crear directorio de Laravel
         //A-Crear archivo Bat para clonar
-        $copy_page = fopen("C:\laragon\www/puntos_bat/facturacion_".$nombre.".bat", 'a');
-        $texto='robocopy C:\laragon\www\facturacion  C:\laragon\www/facturacion_'.$nombre.'_d1s4bl3d /e
-        cd/
-        cd C:\laragon\www/puntos_bat/
-        DEL /F /A facturacion_'.$nombre.'.bat
+        $ruta = public_path('puntos_bat/php/').'facturacion_'.$nombre.".bat";
+        $copy_page = fopen( $ruta , 'a');
+
+        $texto='robocopy C:\laragon\www\facturacion  C:\laragon\www/facturacion_'.$nombre.'_d1s4bl3d /E
+            cd ..
+            cd '.public_path('puntos_bat/php/').'
+            DEL /F /A facturacion_'.$nombre.'.bat
         ';
         fwrite($copy_page,$texto);
-        // fclose($copy_page);
 
         //B-Correr el Archivo Bat
-        $c='start /b  C:\laragon\www/puntos_bat/facturacion_'.$nombre.'.bat';
-        $r=pclose(popen($c, 'r'));
-
-    //2- Crear Base de Datos
+        exec($ruta);
+        // return 'start';
+    //* 2- Crear Base de Datos
         //A-Crear archivo Bat para crear BD
-        $bdatos = fopen('C:\laragon\www/puntos_bat/bd_facturacion_'.$nombre.'.bat', 'a');
-        $texto2='cd/
-        cd C:\laragon\bin\mysql\mysql-5.7.33-winx64\bin
-        mysql -u root -e " create DATABASE facturacion_'.$nombre.' ;"
-        cd/
-        cd C:\laragon\www/puntos_bat/
-        DEL /F /A bd_facturacion_'.$nombre.'.bat
+        $bdatos = public_path('puntos_bat/php/').'bd_facturacion_'.$nombre.".bat";
+        $copy_page2 = fopen( $bdatos , 'a');
+        //cd C:\laragon\bin\mysql\mysql-5.7.33-winx64\bin
+        $texto2='cd /
+            cd C:\laragon\bin\mysql\mysql-8.0.30-winx64\bin
+            mysql -u root -e " create DATABASE facturacion_'.$nombre.' ;"
+            cd /
+            cd '.public_path('puntos_bat/php/').'
+            DEL /F /A bd_facturacion_'.$nombre.'.bat
         ';
-        fwrite($bdatos,$texto2);
+        fwrite($copy_page2,$texto2);
         //B-Correr el Archivo Bat
-        $w='start /b  C:\laragon\www/puntos_bat/bd_facturacion_'.$nombre.'.bat';
-        $r=pclose(popen($w, 'r'));
+        exec($bdatos);
         sleep(5);
 
-    //3- Borrar .env y Crear .ENV con nueva base de datos
+    //* 3- Borrar .env y Crear .ENV con nueva base de datos
         //A-Borrar ENV
         unlink('C:\laragon\www/facturacion_'.$nombre.'_d1s4bl3d/.env');
-        //B-Crear archivo Bat para crear BD
-        $env = fopen('C:\laragon\www/facturacion_'.$nombre.'_d1s4bl3d/.env', 'a');
-        $texto_env='APP_NAME=facturacion_'.$nombre.'
-        APP_ENV=local
-        APP_KEY=base64:mJRlTzPKaapP9OqKdqsj7sTQxSa/HwXoGI2q7L6OwKo=
-        APP_DEBUG=true
-        APP_URL=http://localhost
-
-        LOG_CHANNEL=stack
-
-        DB_CONNECTION=mysql
-        DB_HOST=127.0.0.1
-        DB_PORT=3306
-        DB_DATABASE= facturacion_'.$nombre.'
-        DB_USERNAME=root
-        DB_PASSWORD=
-
-        BROADCAST_DRIVER=log
-        CACHE_DRIVER=file
-        QUEUE_CONNECTION=sync
-        SESSION_DRIVER=file
-        SESSION_LIFETIME=120
-
-        REDIS_HOST=127.0.0.1
-        REDIS_PASSWORD=null
-        REDIS_PORT=6379
-
-        MAIL_DRIVER=smtp
-        MAIL_HOST=smtp.mailtrap.io
-        MAIL_PORT=2525
-        MAIL_USERNAME=5c6698a7299f48
-        MAIL_PASSWORD=be72971a1aa9f9
-        MAIL_ENCRYPTION=null
-
-        AWS_ACCESS_KEY_ID=
-        AWS_SECRET_ACCESS_KEY=
-        AWS_DEFAULT_REGION=us-east-1
-        AWS_BUCKET=
-
-        PUSHER_APP_ID=
-        PUSHER_APP_KEY=
-        PUSHER_APP_SECRET=
-        PUSHER_APP_CLUSTER=mt1
-
-        MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
-        MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
-        ';
-        fwrite($env,$texto_env);
+        //B-Crear ENV con los nuevos datos
+        $env = fopen('C:\laragon\www/facturacion_'.$nombre.'_d1s4bl3d/.env', 'w');
+        $texto_env=file_get_contents(public_path('puntos_bat/php/laravel/.env'));
+        //reemplazar variable por nombre de la carpeta 'factura_project'
+        $new_text = str_replace('factura_project','facturacion_'.$nombre.'',$texto_env);
+        fwrite($env,$new_text);
+        sleep(5);
+        // return 'a';
 
 
-
-
-        // B-Correr el Archivo Bat
-        // exec('c:\WINDOWS\system32\cmd.exe /c START C:\laragon\www/puntos_bat/php_fresh_'.$nombre.'.bat');
-        // $bat_migra='start /b  C:\laragon\www/puntos_bat/php_fresh_'.$nombre.'.bat';
-        // $btmi=pclose(popen($bat_migra, 'r'));
-
-        // return json_encode(array('result'=>$btmi));
-
-        // sleep(90);
-        // unlink('C:\laragon\www/'.$nombre.'.bat');
-        // return json_encode(array('result'=>$r)).json_encode(array('result'=>$a));
-
-    //2- Cambiar Nombre del ".env"
     // GUARDADO DE LOS VALORES A LA BASE DE DATOS
         $user_facturacion = new SisFacturacion;
         $user_facturacion->name = $request->get('nombre');
         $user_facturacion->ruc =$request->get('ruc');
         $user_facturacion->nombre_carpeta ='facturacion_'.$nombre;
         $user_facturacion->nombre_carpeta_desactivado ='facturacion_'.$nombre.'_d1s4bl3d';
+        $user_facturacion->estado_migracion_bd = 1;
         $user_facturacion->save();
 
          //A-Crear archivo Bat para crear las migraciones
-        $migrate = fopen('C:\laragon\www/puntos_bat/BD/php_fresh_facturacion_'.$nombre.'.bat', 'a');
-        $texto_migrate='cd/
-        cd laragon\www/facturacion_'.$nombre.'_d1s4bl3d
-        php artisan migrate:fresh
-        php artisan migrate:fresh --seed
-        cd/
-        cd C:\laragon\bin\mysql\mysql-5.7.33-winx64\bin
-        mysql -u root -e "use jyp_admin; UPDATE sis_facturacion SET estado_migracion_bd="1" WHERE id="'.$user_facturacion->id.'" "
-        cd/
-        cd C:\laragon\www/puntos_bat/BD
-        DEL /F /A php_fresh_facturacion_'.$nombre.'.bat
-        ';
-        fwrite($migrate,$texto_migrate);
+        // $migrate_ruta = 'C:\laragon\www/facturacion_'.$nombre.'_d1s4bl3d/php_fresh_facturacion_'.$nombre.".bat";
+
+        $env2 = fopen(public_path('puntos_bat/BD/migrate2.bat'), 'w');
+        $texto_env2=file_get_contents(public_path('puntos_bat/BD/migrate.bat'));
+        $new_text = str_replace('var1','facturacion_'.$nombre.'_d1s4bl3d',$texto_env2);
+        fwrite($env2,$new_text);
+        sleep(5);
+        // $migrate_db = 'C:\laragon\www\global\public\puntos_bat\BD\migrate2.bat';
+        //B-Correr el Archivo Bat
+        exec('c:\WINDOWS\system32\cmd.exe /c START  C:\laragon\www\global\public\puntos_bat\BD\migrate2.bat');
+
+        // print_r($output);
         return back();
     }
 

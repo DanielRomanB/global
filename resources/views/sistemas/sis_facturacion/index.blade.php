@@ -115,6 +115,9 @@
                             <input type="text" class="form-control" value="{{$sis_facturacions->ruc}}" disabled>
                           </div>
                         </div>
+                        <div class="col-lg-12">
+                          <h3>Comprobantes Electronicos</h3>
+                        </div>
                         <div class="col-lg-6">
                          <div class="form-group">
                           <label style="margin-bottom: 1px;">Nombre de Usuario (Sunat):</label>
@@ -126,8 +129,23 @@
                         <label style="margin-bottom: 1px;">Contraseña de Usuario (Sunat):</label>
                         <input type="text" class="form-control" placeholder="*******"  name="psw_usuario_sunat" value="{{$sis_facturacions->contrasena_sunat}}">
                       </div>
+                      
                     </div>
-
+                    <div class="col-lg-12">
+                      <h3>API - GUIA DE REMISION</h3>
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label style="margin-bottom: 1px;">API ID:</label>
+                        <input type="text" class="form-control" name="api_id_guia">
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label style="margin-bottom: 1px;">API CLAVE:</label>
+                        <input type="text" class="form-control" name="api_clave_guia">
+                      </div>
+                    </div>
                     <div class="col-lg-6">
                      <div class="form-group">
                       <label style="margin-bottom: 5px;">Certificado (Sunat):</label><br>
