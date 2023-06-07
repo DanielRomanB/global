@@ -26,7 +26,7 @@ Route::group(
     //SISTEMAS
         //FACTURACION
         Route::resource('/sis_facturacion','SisFacturacionController')->except(['destroy']);;
-        Route::put('/sis_facturacion/estado/{id}','SisFacturacionController@estado')->name('sis_facturacion.estado');
+        Route::post('/sis_facturacion/estado','SisFacturacionController@estado')->name('sis_facturacion.estado');
 
         //TICKET
         Route::resource('/sis_ticket','SisTicketController')->except(['destroy']);;
