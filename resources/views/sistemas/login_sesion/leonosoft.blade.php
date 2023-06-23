@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-{{-- <div class="container">
+<div class="container">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">
@@ -17,7 +17,7 @@
                 @endif
             </div>
             <div class="card-body"  >
-                <form method="POST" action="{{ route('sesion') }}" >
+                <form method="POST" action="{{ route('sesion_leono') }}" >
                     @csrf
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 <style type="text/css">
 
 /*@import url('https://fonts.googleapis.com/css?family=Numans');
