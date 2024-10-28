@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\User;
 class UserController extends Controller
 {
+    public function user (Request $request) {
+        return $request->user();
+    }
         /**
      * Display a listing of the resource.
      *
