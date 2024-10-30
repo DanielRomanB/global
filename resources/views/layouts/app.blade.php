@@ -7,6 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="icon"  sizes='114x114' type="image/png" href="{{ asset('leonosoft.png') }}" />
+    @yield('styles')
     <title>Login-Empresas</title>
 
     <!-- Scripts -->
