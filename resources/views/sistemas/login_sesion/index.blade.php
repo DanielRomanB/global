@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> --}}
     <script src="https://kit.fontawesome.com/e642c4f3ce.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -290,7 +290,7 @@
     </div> --}}
 
     <!-- Modal - CONSULTAR COMPROBANTE -->
-    <x-modal-custom id="consultarComprobante" title="Consulta de Comprobantes de Pago">
+    <x-modalCustom id="consultarComprobante" title="Consulta de Comprobantes de Pago">
         <div class="m-2 p-2 bg-info-subtle text-center pt-4">
             <p class="text-secondary">Una vez verificados los datos ingresados se procederá a mostrar el CDP emitido en su nombre, del cual también podrá descargarse un PDF y un archivo XML con todos sus datos.</p>
         </div>
@@ -335,7 +335,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary px-3">Consultar</button>
             </form>
-    </x-modal-custom>
+    </x-modalCustom>
 
     <!-- Modal - CONSULTAR COMPROBANTE- NUEVO -->
     <div class="modal fade align-content-md-center" id="exampleModalComprobante" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
