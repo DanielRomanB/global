@@ -14,7 +14,8 @@ class ViewController extends Controller
     }
 
     public function login_ruc(){
-        return Redirect::to('https://grupojypsac.com/');
+        // return Redirect::to('https://grupojypsac.com/');
+        return view('auth.login');
     }
     public function login_leonosoft(){
         return view('sistemas.login_sesion.leonosoft');
