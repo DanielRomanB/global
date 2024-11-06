@@ -126,7 +126,7 @@
                         <div class="d-grid gap-2 pb-2">
                             <button class="btn btn-primary" type="button" id="loginButton">Iniciar sesión</button>
                         </div>
-                        <p class="text-center pt-2">¿Quieres consultar un comprobante? <b><a href="#" class="link-offset-2 link-underline link-underline-opacity-0" data-bs-toggle="modal" data-bs-target="#consultarComprobanteComprobante"> Consultar </a></b></p>
+                        <p class="text-center pt-2">¿Quieres consultar un comprobante? <b><a href="#" class="link-offset-2 link-underline link-underline-opacity-0" data-bs-toggle="modal" data-bs-target="#consultarComprobante"> Consultar </a></b></p>
                     </form>
                 </div>
 
@@ -148,7 +148,7 @@
         </div>
     </div>
 
-<!-- Modal - RECUPERAR CONTRASEÑA-->
+    <!-- Modal - RECUPERAR CONTRASEÑA-->
     {{-- <div class="modal fade align-content-md-center" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content px-3">
@@ -177,7 +177,7 @@
     </div> --}}
 
     <!-- Modal - RECUPERAR CONTRASEÑA-->
-    <x-modal :isComprobante="false" id="resetPassword" title="Recuperar Contraseña">
+    <x-modal id="resetPassword" title="Recuperar Contraseña">
             <p class="mx-5">Ingresa tu Correo Electrónico para identificar tu cuenta. Te enviaremos una contraseña al correo registrado para proceder al cambio de contraseña.</p>
              <!-- FORMULARIO -->
             <form action="">
@@ -219,7 +219,7 @@
     </div> --}}
 
     <!-- Modal - RECUPERAR CONTRASEÑA - CORREO ENVIADO -->
-    <x-modal :isComprobante="false" id="correoEnviado" title="Recuperar Contraseña">
+    <x-modal id="correoEnviado" title="Recuperar Contraseña">
         <i class="bi bi-check-circle-fill text-success"></i>
             <p class="mx-5">Enviamos un correo a "example@gmail.com"<br>Ingrese a su cuenta y siga las instrucciones para la recuperación de la contraseña.</p>
 
@@ -290,7 +290,7 @@
     </div> --}}
 
     <!-- Modal - CONSULTAR COMPROBANTE -->
-    <x-modal :isComprobante="true" id="consultarComprobante" title="Consulta de Comprobantes de Pago">
+    <x-modal-custom id="consultarComprobante" title="Consulta de Comprobantes de Pago">
         <div class="m-2 p-2 bg-info-subtle text-center pt-4">
             <p class="text-secondary">Una vez verificados los datos ingresados se procederá a mostrar el CDP emitido en su nombre, del cual también podrá descargarse un PDF y un archivo XML con todos sus datos.</p>
         </div>
@@ -335,7 +335,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary px-3">Consultar</button>
             </form>
-    </x-modal>
+    </x-modal-custom>
 
     <!-- Modal - CONSULTAR COMPROBANTE- NUEVO -->
     <div class="modal fade align-content-md-center" id="exampleModalComprobante" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
