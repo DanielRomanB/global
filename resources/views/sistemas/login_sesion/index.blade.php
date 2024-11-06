@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/login/index/style.css') }}">
     <link href="loading-screen.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-v5.3.3.min.css') }}">
     <title>Facturador Electrónico</title>
 </head>
 <body>
@@ -290,7 +291,7 @@
     </div> --}}
 
     <!-- Modal - CONSULTAR COMPROBANTE -->
-    <x-modalCustom id="consultarComprobante" title="Consulta de Comprobantes de Pago">
+    {{-- <x-modalcustom id="consultarComprobante" title="Consulta de Comprobantes de Pago">
         <div class="m-2 p-2 bg-info-subtle text-center pt-4">
             <p class="text-secondary">Una vez verificados los datos ingresados se procederá a mostrar el CDP emitido en su nombre, del cual también podrá descargarse un PDF y un archivo XML con todos sus datos.</p>
         </div>
@@ -335,20 +336,10 @@
                 </div>
                 <button type="submit" class="btn btn-primary px-3">Consultar</button>
             </form>
-    </x-modalCustom>
+    </x-modalCustom> --}}
 
     <!-- Modal - CONSULTAR COMPROBANTE- NUEVO -->
-    <div class="modal fade align-content-md-center" id="exampleModalComprobante" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content px-3">
-                <div class="modal-header d-flex justify-content-center">
-                    <h1 class="modal-title fs-5 text-primary text-sm-center text-titulo" id="exampleModalLabel" style="color: blue;">Consultar comprobante</h1>
-                    <button type="button" class="floating-close d-flex justify-content-center align-items-center" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body">
+   <x-modalcustom id="consultarComprobante" title="Consulta de Comprobantes de Pago">
                     <form id="comprobanteForm" class="" onsubmit="return validateCaptcha(event)">
 
                         <div class="mb-2 row">
@@ -393,7 +384,7 @@
                             <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
                         </div>
 
-                        <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center"> 
                             <button type="submit" class="btn btn-primary px-3 text-center">Consultar</button>
                         </div>
 
@@ -402,6 +393,7 @@
             </div>
         </div>
     </div>
+</x-modalcustom>
 
     <!-- Codigo para la pantalla de carga -->
     <div id="loadingScreen">
@@ -411,18 +403,19 @@
         </div>
     </div>
 
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
     <script>
         function validateCaptcha(event) {
-            event.preventDefault(); // Prevent form submission
+            event.preventDefault(); // Prevenir el envío del formulario
             const response = grecaptcha.getResponse();
             if (response.length === 0) {
                 alert("Por favor, confirme que no es un robot.");
-                return false; // Prevent form submission
+                return false; // Prevenir el envío si no se validó el reCAPTCHA
             } else {
                 alert("Formulario enviado correctamente.");
-                // Here you can add the logic to submit the form or display the results
-                // e.g., document.getElementById('comprobanteForm').submit();
-                return true; // Allow form submission
+                return true; // Permitir el envío si se validó el reCAPTCHA
             }
         }
     </script>
