@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use App\SisFacturacion;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class ViewController extends Controller
@@ -52,4 +54,26 @@ class ViewController extends Controller
         }
   
       }
+    
+    public function login(Request $request){
+        try{
+            //verificar que la empresa con ruc exista
+            $empresa = SisFacturacion::where('ruc', $request->ruc)->first();
+            if(!$empresa){
+                return response()->json(["status" => '400', "message" => "No existe empresa con ese número de ruc."]);
+            }
+            //verificar que el usuario con correo y clave exista
+            
+            // $user = User::where('email', $request->email)->first();
+            $host = 'http://127.0.0.1:8001';    //Sistema facturacion = 8001
+            $url = $host."/regenerateSession";
+            // $url = $host."/regenerateSession/".$request->email."/".$request->password;
+            $apiVerificationURL = $host."/api/verifyCredentials";
+            $apiVerificationURL = "http://127.0.0.1:8001/api/verifyCredentials";
+
+            return response()->json(["status" => '200', 'message' => 'Se encontro empresa.', 'url' => $url, "apiVerificationURL" => $apiVerificationURL]);
+        } catch(\Exception $e){
+            return response()->json(["status" => '500', 'message' => 'Ha ocurrido un error al iniciar sesión.', 'error' => $e]);
+        }
+    }
 }
