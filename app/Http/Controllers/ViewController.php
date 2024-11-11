@@ -62,14 +62,12 @@ class ViewController extends Controller
             if(!$empresa){
                 return response()->json(["status" => '400', "message" => "No existe empresa con ese número de ruc."]);
             }
-            //verificar que el usuario con correo y clave exista
             
-            // $user = User::where('email', $request->email)->first();
             $host = 'http://127.0.0.1:8001';    //Sistema facturacion = 8001
             $url = $host."/regenerateSession";
             // $url = $host."/regenerateSession/".$request->email."/".$request->password;
             $apiVerificationURL = $host."/api/verifyCredentials";
-            $apiVerificationURL = "http://127.0.0.1:8001/api/verifyCredentials";
+            // $apiVerificationURL = "http://127.0.0.1:8001/api/verifyCredentials";
 
             return response()->json(["status" => '200', 'message' => 'Se encontro empresa.', 'url' => $url, "apiVerificationURL" => $apiVerificationURL]);
         } catch(\Exception $e){
