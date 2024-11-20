@@ -1,5 +1,6 @@
 function togglePassword() {
-    const passwordInput = document.getElementById("password-input");
+    console.log('clicked');
+    const passwordInput = document.getElementById("passwordRequest");
     const eyeIcon = document.getElementById("eye-icon");
     
     if (passwordInput && eyeIcon) {

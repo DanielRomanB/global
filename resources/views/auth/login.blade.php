@@ -26,6 +26,10 @@
 
     <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-v5.3.3.min.css') }}" rel="stylesheet">
+    
+    <link href="{{ asset('css/alerts.css') }}" rel="stylesheet">
+    <script src="{{asset('js/alerts.js')}}"></script>
+    <script src="{{asset('js/login.js')}}"></script>
     {{--
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script> --}}
@@ -143,11 +147,11 @@
 
                         <div class="input-box">
                             <label for="usuario"><i class="fa fa-user"></i> <strong>Usuario</strong></label>
-                            <input type="text" id="emailRequest" required placeholder="Ingresa tu usuario">
+                            <input type="text" id="emailRequest" type="email" required placeholder="Ingresa tu usuario">
                         </div>
 
                         <div class="input-box password-container">
-                            <label for="password-input"><i class="fa fa-lock"></i> <strong>Contraseña</strong></label>
+                            <label><i class="fa fa-lock"></i> <strong>Contraseña</strong></label>
                             <input type="password" id="passwordRequest" autocomplete="off" required
                                 placeholder="Ingresa tu contraseña">
                             <span class="toggle-password" onclick="togglePassword()">
@@ -155,9 +159,7 @@
                             </span>
                         </div>
 
-                        <div class="form-check mb-3">
-                            <input class="form-check-input shadow-none" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">Recordar datos</label>
+                        <div class="form-check mb-3 text-center d-flex justify-content-center">
                             <a href="..." data-bs-toggle="modal" data-bs-target="#exampleModal"
                                 class="link-offset-2 link-underline link-underline-opacity-0 float-end">Recuperar
                                 contraseña</a>
@@ -188,7 +190,9 @@
                                     class="bi bi-geo-alt-fill text-leono"></i></a></li>
                     </ul>
                 </div>
+                <div id="alert-container">
 
+                </div>
             </div>
         </div>
     </div>
@@ -422,55 +426,6 @@
                 return true; // Allow form submission
             }
         }
-    </script>
-    <script>
-        const handleFormSubmit = (event) => {
-            event.preventDefault();
-            let form = document.getElementById('FormBody')
-            let ruc = document.getElementById('rucRequest').value
-            let email = document.getElementById('emailRequest').value
-            let password = document.getElementById('passwordRequest').value
-
-            LoginUrl = "http://127.0.0.1:8000/api/login"    //Sistema global = 8000
-
-            fetch(LoginUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    ruc: ruc,
-                }),
-                })
-                .then((resp) => resp.json())
-                .then((data) => {
-                    console.log(data);
-                    if (data.status == '200') {
-                        window.location.href = `${data.url}/${email}/${password}`;
-                        // fetch(`${data.apiVerificationURL}/${email}/${password}`, {
-                        //     // method: "POST",
-                        //     // headers: {
-                        //     //     "Content-Type": "application/json",
-                        //     // },
-                        //     // body: JSON.stringify({
-                        //     //     email: email,
-                        //     //     password: password
-                        //     // }),
-                        // })
-                        // .then((response) => response.json())
-                        // .then((info) => {
-                        //     console.log(info);
-                        //     if(info.status == '200'){
-                        //         let redirection = `${data.url}/${email}/${password}`
-                        //         // window.location.href = redirection;
-                        //     }
-                        // })
-                        // .catch((hasError) => console.error("Error: ", hasError));
-                    }
-                })
-                .catch((error) => console.error("Error:", error));
-
-            }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

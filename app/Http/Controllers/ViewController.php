@@ -62,16 +62,33 @@ class ViewController extends Controller
             if(!$empresa){
                 return response()->json(["status" => '400', "message" => "No existe empresa con ese número de ruc."]);
             }
-            //verificar que el usuario con correo y clave exista
-            
-            // $user = User::where('email', $request->email)->first();
-            $host = 'http://127.0.0.1:8001';    //Sistema facturacion = 8001
-            $url = $host."/regenerateSession";
-            // $url = $host."/regenerateSession/".$request->email."/".$request->password;
-            $apiVerificationURL = $host."/api/verifyCredentials";
-            $apiVerificationURL = "http://127.0.0.1:8001/api/verifyCredentials";
+            //declarar host
+            // $host = 'http://127.0.0.1:8001';    //Sistema facturacion = 8001
+            $host = 'http://jypsac.dyndns.org:190/facturacion_'.$request->ruc.'/'.'public/';
 
-            return response()->json(["status" => '200', 'message' => 'Se encontro empresa.', 'url' => $url, "apiVerificationURL" => $apiVerificationURL]);
+            //verificar que el usuario con correo y clave exista
+            $apiVerificationURL = $host."/api/verifyCredentials/".$request->email."/".$request->password;
+
+            //Usar api de verificacion
+            $respVerification = file_get_contents($apiVerificationURL);
+
+            $data = json_decode($respVerification, true);
+
+            $status = $data['status'];
+            if($status == "200"){
+                $access = $data['access'];
+                if(!$access){
+                    //Si esta mal mostrar mensaje de error
+                    return response()->json(["status" => '400', "message" => "Email o contraseña incorrectos."]);
+                } else{
+                    $url = $host."/regenerateSession"."/".$request->email."/".$request->password;
+                    //Si esta bien enviar url
+                    return response()->json(["status" => '200', 'message' => 'Inicio de sesión exitoso.', 'url' => $url]);
+                }
+            } else{
+                return response()->json(["status" => '400', "message" => "Ha ocurrido un error al verificar usaurio."]);
+            }
+
         } catch(\Exception $e){
             return response()->json(["status" => '500', 'message' => 'Ha ocurrido un error al iniciar sesión.', 'error' => $e]);
         }
