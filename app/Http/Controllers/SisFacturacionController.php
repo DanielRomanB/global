@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\SisFacturacion;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class SisFacturacionController extends Controller
 {
@@ -353,5 +354,51 @@ class SisFacturacionController extends Controller
             $estado_empresa->save();
             return response()->json(['mensaje'=>'<div class="alert alert-warning alert-dismissable"><button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>La Empresa "'.$estado_empresa->name.'" ha sido <b>Desactivado</b> Exitosamente</div> ']);
         }
+    }
+
+    public function consulta_comprobante(Request $request){
+        // return $request;    
+        $sistemas = SisFacturacion::where('ruc', $request->ruc_emisor)->first();
+        if(!isset($sistemas)){
+            return response()->json([
+                'error' => true,
+                'mensaje' => 'Datos invalidos',
+            ]);
+        }
+        // numero 
+        $nuevo_numero = $request->numero;
+        if (preg_match('/^([A-Z0-9]+)-(\d+)$/', $nuevo_numero, $matches)) {
+            $serie = $matches[1];
+            $correlativo = $matches[2];
+        }
+        // return $serie;
+        $url = config('services.api_externa')['key'].$sistemas->nombre_carpeta.'/public/api/consulta-comprobante';
+        // $url = 'http://127.0.0.1:8000/api/consulta-comprobante';
+        // $url = 'http://jypsac.dyndns.org:190/facturacion_20545122520/public/api/consulta-comprobante';
+        // return $var;
+        // 
+        // dd($url);
+        $response = Http::post($url, [
+
+            'tipo' => $request->tipo,
+            'cliente' => $request->ruc_receptor,
+            'serie' => $serie,
+            'correlativo' => $correlativo,
+            'fecha_emision' =>  $request->emision,
+            'monto_total' => $request->total,
+            'total' => $request->total
+        ]);
+        // dd($response);
+        // Verifica si la respuesta fue exitosa
+        if ($response->successful()) {
+            return $response->json();
+        } else {
+            return response()->json([
+                'error' => true,
+                'mensaje' => 'No se pudo conectar con la API',
+                'detalle' => $response->body()
+            ], $response->status());
+        }
+            // http://127.0.0.1:8000/api/consulta-comprobante
     }
 }

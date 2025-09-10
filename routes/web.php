@@ -52,3 +52,5 @@ Route::post('/sesion-leonosoft','ViewController@sesion_leono')->name('sesion_leo
 // Route::post('/sesion','ViewController@sesion')->name('sesion');
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::post('/consulta','SisFacturacionController@consulta_comprobante')->name('leonosoft.consulta');
+
