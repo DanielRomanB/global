@@ -15,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('login', [ViewController::class, 'login']);
+Route::post('login', [ViewController::class, 'login_leonosoft_api'])->name('login_leonosoft_api');
 
 Route::middleware('auth:api')->get('/user', [UserController::class, 'user']);

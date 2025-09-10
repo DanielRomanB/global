@@ -23,19 +23,19 @@ class ViewController extends Controller
         return view('sistemas.login_sesion.leonosoft');
     }
 
-    public function sesion_leono(Request $request){
-      $ruc_empresa = $request->get('ruc');
-      $empresa = SisFacturacion::where('ruc',$ruc_empresa)->first();
-      // return $empresa;
-      if(!isset($empresa)){
-          return back()->withErrors(['La Empresa con el R.U.C: '. $ruc_empresa.' No existe.']);
-      }elseif($empresa->estado == 0){
-          return back()->withErrors(['La empresa :'. $empresa->name.' se encuentra inactiva actualmente']);
-      }else{
-         return redirect('http://jypsac.dyndns.org:190/facturacion_'.$ruc_empresa.'/public/');
-      }
+    // public function sesion_leono(Request $request){
+    //   $ruc_empresa = $request->get('ruc');
+    //   $empresa = SisFacturacion::where('ruc',$ruc_empresa)->first();
+    //   // return $empresa;
+    //   if(!isset($empresa)){
+    //       return back()->withErrors(['La Empresa con el R.U.C: '. $ruc_empresa.' No existe.']);
+    //   }elseif($empresa->estado == 0){
+    //       return back()->withErrors(['La empresa :'. $empresa->name.' se encuentra inactiva actualmente']);
+    //   }else{
+    //      return redirect('http://jypsac.dyndns.org:190/facturacion_'.$ruc_empresa.'/public/');
+    //   }
 
-    }
+    // }
 
     public function login_wolke(){
         return view('sistemas.login_sesion.wolke');
@@ -55,7 +55,7 @@ class ViewController extends Controller
   
       }
     
-    public function login(Request $request){
+    public function login_leonosoft_api(Request $request){
         try{
             //verificar que la empresa con ruc exista
             $empresa = SisFacturacion::where('ruc', $request->ruc)->first();
@@ -67,13 +67,13 @@ class ViewController extends Controller
             $host = 'http://jypsac.dyndns.org:190/facturacion_'.$request->ruc.'/'.'public/';
 
             //verificar que el usuario con correo y clave exista
-            $apiVerificationURL = $host."/api/verifyCredentials/".$request->email."/".$request->password;
-
+            $apiVerificationURL = $host."api/verifyCredentials/".$request->email."/".$request->password;
+            // dd($apiVerificationURL);
             //Usar api de verificacion
             $respVerification = file_get_contents($apiVerificationURL);
 
             $data = json_decode($respVerification, true);
-
+            
             $status = $data['status'];
             if($status == "200"){
                 $access = $data['access'];
@@ -81,7 +81,7 @@ class ViewController extends Controller
                     //Si esta mal mostrar mensaje de error
                     return response()->json(["status" => '400', "message" => "Email o contraseña incorrectos."]);
                 } else{
-                    $url = $host."/regenerateSession"."/".$request->email."/".$request->password;
+                    $url = $host."regenerateSession"."/".$request->email."/".$request->password;
                     //Si esta bien enviar url
                     return response()->json(["status" => '200', 'message' => 'Inicio de sesión exitoso.', 'url' => $url]);
                 }

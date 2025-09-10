@@ -38,16 +38,16 @@ Route::group(
 //     return Redirect::to('http://global.test:190/empresa');
 // });
 Auth::routes();
-Route::get('/','ViewController@login_ruc')->name('redirect_all');
+Route::get('/','ViewController@login_leonosoft')->name('redirect_all');
 //Seleccionar LEONOSOFT
-Route::get('/leonosoft','ViewController@login_leonosoft')->name('login_leonosoft');
+// Route::get('/leonosoft','ViewController@login_leonosoft')->name('login_leonosoft');
 Route::post('/sesion-leonosoft','ViewController@sesion_leono')->name('sesion_leono');
 //Seleccionar WOLKE
 Route::get('/wolke','ViewController@login_wolke')->name('login_wolke');
 Route::post('/sesion-wolke','ViewController@sesion_wolke')->name('sesion_wolke');
 //Seleccionar TICKET
-Route::get('/leonosoft','ViewController@login_leonosoft')->name('login_leonosoft');
-Route::post('/sesion-leonosoft','ViewController@sesion_leono')->name('sesion_leono');
+// Route::get('/leonosoft','ViewController@login_leonosoft')->name('login_leonosoft');
+// Route::post('/sesion-leonosoft','ViewController@sesion_leono')->name('sesion_leono');
 // Route::post('/sesion','ViewController@sesion')->name('sesion');
 // Route::post('/sesion','ViewController@sesion')->name('sesion');
 Route::get('/home', 'HomeController@index')->name('home');

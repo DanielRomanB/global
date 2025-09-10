@@ -2,7 +2,7 @@ const handleFormSubmit = (event) => {
     event.preventDefault();
     let loginButton = document.getElementById('loginButton');
     loginButton.disabled = true;
-    try{
+    try {
 
         let ruc = document.getElementById('rucRequest').value
         let email = document.getElementById('emailRequest').value
@@ -18,10 +18,10 @@ const handleFormSubmit = (event) => {
             showAlert('warning', 'Ingrese contraseña por favor.');
             go = false;
         }
-    
+
         if (go) {
-            LoginUrl = "http://127.0.0.1:8000/api/login"    //Sistema global = 8000
-    
+            LoginUrl = loginButton.dataset.url;   //Sistema global = 8000
+            console.log(LoginUrl)
             fetch(LoginUrl, {
                 method: "POST",
                 headers: {
@@ -46,11 +46,11 @@ const handleFormSubmit = (event) => {
                 })
                 .catch((error) => console.error("Error:", error));
         }
-    
+
         setTimeout(() => {
             loginButton.disabled = false;
         }, 4500);
-    } catch(error){
+    } catch (error) {
         showAlert("error", "Ha ocurrido un error inesperado");
         setTimeout(() => {
             showAlert("info", error)
