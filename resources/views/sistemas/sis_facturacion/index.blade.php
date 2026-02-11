@@ -124,10 +124,10 @@
                                             <td style="text-align: left">
                                                 @switch($sis_facturacions->estado)
                                                     @case(0)
-                                                        <span class="label label-success float-right">Activo</span>
+                                                        <span class="label label-success float-right">Desactivado</span>
                                                         @break
                                                     @case(1)
-                                                        <span class="label label-warning float-right">Desactivado</span>
+                                                        <span class="label label-warning float-right">Activo</span>
                                                         @break
                                                     @case(2)
                                                         <span class="label label-danger float-right">Eliminado</span>
