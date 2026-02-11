@@ -25,9 +25,10 @@ Route::group(
 
     //SISTEMAS
         //FACTURACION
-        Route::resource('/sis_facturacion','SisFacturacionController')->except(['destroy']);;
+        Route::resource('/sis_facturacion','SisFacturacionController')->except(['destroy']);
+        // Route::resource('/sis_facturacion','SisFacturacionController@index')->except(['destroy']);
         Route::post('/sis_facturacion/estado','SisFacturacionController@estado')->name('sis_facturacion.estado');
-
+        Route::post('/sis_facturacion/delete', 'SisFacturacionController@delete_sis')->name('sis_facturacion.delete_sis');
         //TICKET
         Route::resource('/sis_ticket','SisTicketController')->except(['destroy']);;
         Route::put('/sis_ticket/estado/{id}','SisTicketController@estado')->name('sis_ticket.estado');

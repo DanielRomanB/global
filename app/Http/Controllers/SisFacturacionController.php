@@ -14,13 +14,28 @@ class SisFacturacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //  $cmd=shell_exec('C:\Users\Desarrollo\Desktop/cd.bat');
         // return "listo";
 
-        $sis_facturacion = SisFacturacion::all();
-        return view('sistemas.sis_facturacion.index',compact('sis_facturacion'));
+        $sis_facturacion = SisFacturacion::query()
+            ->when($request->filled('search_ruc'), function($q) use ($request){
+                $q->where('name', 'like', "%{$request->search_ruc}%")
+                    ->orWhere('ruc', 'like', "%{$request->search_ruc}%");
+            })
+            ->when($request->filled('estado'), function($q) use ($request){
+                match ((int) $request->estado) {
+                    1 => $q->where('estado', 1), // Pendiente
+                    0 => $q->where('estado', 0),  // Aprobado
+                    2 => $q->where('estado', 2),  // Rechazado
+                    default => null,
+                };
+            })
+            ->paginate(15);
+            // ->withQueryString();
+
+        return view('sistemas.sis_facturacion.index',compact('sis_facturacion','request'));
     }
 
     /**
@@ -400,5 +415,14 @@ class SisFacturacionController extends Controller
             ], $response->status());
         }
             // http://127.0.0.1:8000/api/consulta-comprobante
+    }
+
+    public function delete_sis(Request $request){
+        $id_sis = $request->id_sistema;
+
+        $sis = SisFacturacion::findorFail($id_sis);
+        $sis->estado = 2;
+        $sis->save();
+        return redirect()->route('sis_facturacion.index')->with('success', 'Se eliminó correctamente');
     }
 }
