@@ -32,7 +32,7 @@ class SisFacturacionController extends Controller
                     default => null,
                 };
             })
-            ->paginate(15);
+            ->get();
             // ->withQueryString();
 
         return view('sistemas.sis_facturacion.index',compact('sis_facturacion','request'));
