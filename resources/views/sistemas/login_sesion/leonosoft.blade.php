@@ -547,8 +547,8 @@
                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 },
                 success: function(response) {
-                    if (response.success === false) {
-                        toastr.error(response.error);
+                    if (response.success === false || response.error == true) {
+                        toastr.error("No se encontaron registros con los datos ingresados, por favor verifica e intenta nuevamente.");
                         return;
                     }
                     $('#consulta-boton').css('display', 'none');

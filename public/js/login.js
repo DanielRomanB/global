@@ -1,3 +1,22 @@
+// function toastr(type = "info", message = "") {
+//     const toastr = Swal.mixin({
+//         toastr: true,
+//         position: 'top-end', // esquina superior derecha
+//         showConfirmButton: false,
+//         timer: 3500,
+//         timerProgressBar: true,
+//         didOpen: (toastr) => {
+//             toastr.addEventListener('mouseenter', Swal.stopTimer);
+//             toastr.addEventListener('mouseleave', Swal.resumeTimer);
+//         }
+//     });
+
+//     toastr.fire({
+//         icon: type,   // success | error | warning | info | question
+//         title: message
+//     });
+// }
+
 const handleFormSubmit = (event) => {
     event.preventDefault();
     let loginButton = document.getElementById('loginButton');
@@ -9,13 +28,13 @@ const handleFormSubmit = (event) => {
         let password = document.getElementById('passwordRequest').value
         let go = true;
         if (ruc == '') {
-            showAlert('warning', 'Ingrese ruc por favor.');
+            toastr.warning('Ingrese ruc por favor.');
             go = false;
         } else if (email == '') {
-            showAlert('warning', 'Ingrese email por favor.');
+            toastr.warning('Ingrese email por favor.');
             go = false;
         } else if (password == '') {
-            showAlert('warning', 'Ingrese contraseña por favor.');
+            toastr.warning('Ingrese contraseña por favor.');
             go = false;
         }
 
@@ -36,12 +55,12 @@ const handleFormSubmit = (event) => {
                 .then((resp) => resp.json())
                 .then((data) => {
                     if (data.status == '200') {
-                        showAlert("success", data.message);
+                        toastr.success(data.message);
                         // console.log(data.url);
                         window.location.href = data.url;
                     } else {
                         //mostrar error
-                        showAlert("error", data.message);
+                        toastr.error(data.message);
                     }
                 })
                 .catch((error) => console.error("Error:", error));
@@ -51,9 +70,9 @@ const handleFormSubmit = (event) => {
             loginButton.disabled = false;
         }, 4500);
     } catch (error) {
-        showAlert("error", "Ha ocurrido un error inesperado");
+        toastr.error("Ha ocurrido un error inesperado");
         setTimeout(() => {
-            showAlert("info", error)
+            toastr.info(error)
         }, 10);
         setTimeout(() => {
             loginButton.disabled = false;
