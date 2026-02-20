@@ -71,7 +71,7 @@ class ViewController extends Controller
             // dd($apiVerificationURL);
             //Usar api de verificacion
             $respVerification = file_get_contents($apiVerificationURL);
-
+            // dd($respVerification);
             $data = json_decode($respVerification, true);
             
             $status = $data['status'];
